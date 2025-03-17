@@ -1,0 +1,39 @@
+{
+  "name": "figma-icons-exporter",
+  "version": "0.1.20250316",
+  "scripts": {
+    "test": "node --import tsx --test ./src/**/*.test.ts",
+    "watch": "node --import tsx ./scripts/esbuild.ts watch",
+    "build": "node --import tsx ./scripts/esbuild.ts build",
+    "serve": "node --import tsx --watch ./src/server/node/main.ts"
+  },
+  "bin": {
+    "serve": "./build/server/index.js"
+  },
+  "exports": {
+    ".": "./src/exports/common.ts",
+    "./dom": "./src/exports/dom.ts",
+    "./node": "./src/exports/node.ts",
+    "./react": "./src/exports/react.tsx",
+    "./zod": "./src/exports/zod.ts"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "1.108.0",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vanilla-extract/esbuild-plugin": "^2.3.15",
+    "esbuild": "^0.25.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@vanilla-extract/css": "^1.17.1",
+    "@vanilla-extract/recipes": "^0.5.5",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.3.0",
+    "react": "^19.0.0",
+    "rxjs": "^7.8.2",
+    "zod": "^3.23.8"
+  }
+}

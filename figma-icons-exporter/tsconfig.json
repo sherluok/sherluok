@@ -1,0 +1,42 @@
+{
+  "include": [
+    "./scripts/**/*",
+    "./src/**/*",
+  ],
+  "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@figma",
+    ],
+    "paths": {
+      "^/*": [
+        "./src/*"
+      ],
+    },
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "pretty": true,
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "sourceMap": true,
+    "composite": false,
+    "incremental": false,
+    "skipLibCheck": true,
+    "noEmitOnError": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "moduleDetection": "auto",
+    "moduleResolution": "Bundler",
+    "strictNullChecks": true,
+    "preserveSymlinks": false,
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "allowArbitraryExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+  },
+}

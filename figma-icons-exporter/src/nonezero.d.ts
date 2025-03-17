@@ -1,0 +1,1 @@
+// export function fixPathDataDirections(pathData: any[]): any[]; 

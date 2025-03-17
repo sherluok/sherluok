@@ -1,0 +1,1 @@
+export function getFixedPathDataString(d: string): string;

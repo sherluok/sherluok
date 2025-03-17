@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "packageManager": "pnpm@10.6.2",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

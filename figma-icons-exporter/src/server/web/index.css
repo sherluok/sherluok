@@ -1,0 +1,34 @@
+#vars {
+  > * {
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+  }
+}
+
+#icons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 16px;
+  padding: 16px;
+  gap: 16px;
+  font-size: 48px;
+  border: 1px solid hsl(0 0% 0% / 25%);
+  background: #333;
+  color: #ccc;
+
+  > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 8px;
+    > strong {
+      font-size: 12px;
+      display: none;
+    }
+    > svg {
+      font-size: 48px;
+    }
+  }
+}
