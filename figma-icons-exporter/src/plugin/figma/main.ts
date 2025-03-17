@@ -25,17 +25,16 @@ figma.showUI(__html__, {
 // posted message
 figma.ui.on('message', async (pluginMessage: unknown): Promise<void> => {
   console.log('[figma.ui.onmessage]', pluginMessage);
-  const parseResult = PluginMessageFromUI.safeParse(pluginMessage);
-  if (parseResult.error) {
-    console.error(parseResult.error);
+  const { error, data: message } = PluginMessageFromUI.safeParse(pluginMessage);
+  if (error) {
+    console.error(error);
     return;
   }
-  const { type, data } = parseResult.data;
-  if (type === 'export') {
-    if (data.createComponent) {
+  if (message.type === 'export') {
+    if (message.data.createComponent) {
       sendMessageToUI({ type: 'export-result', data: { state: 'rejected', message: 'Not supported!' } });
     }
-    if (data.sendToServer) {
+    if (message.data.sendToServer) {
       sendMessageToUI({ type: 'export-result', data: { state: 'pending', message: 'sending to server...' } });
       await new Promise((resolve) => setTimeout(resolve, 2000));
       // await uploadToServer(data.sendToServer.httpEndpointAddress).then(() => {
@@ -49,13 +48,55 @@ figma.ui.on('message', async (pluginMessage: unknown): Promise<void> => {
       //   }
       // });
     }
-    if (data.saveJson) {
+    if (message.data.saveJson) {
       sendMessageToUI({ type: 'export-result', data: { state: 'rejected', message: 'Not supported!' } });
     }
     sendMessageToUI({ type: 'export-result', data: { state: 'fulfilled', message: 'ojbk!' } });
     return;
   }
-  console.log(`Unkndown message type "${type}", close plugin.`);
+
+  if (message.type === 'request') {
+    if (message.method === 'select-source-node') {
+      figma.on('selectionchange', () => {
+        if (figma.currentPage.selection.length === 1) {
+          const node = figma.currentPage.selection[0];
+          if (node.type === 'FRAME') {
+            sendMessageToUI({
+              type: 'response',
+              method: 'select-source-node',
+              success: true,
+              body: {
+                nodeId: node.id,
+                nodeName: node.name,
+              },
+            });
+            return;
+          }
+          sendMessageToUI({
+            type: 'response',
+            method: 'select-source-node',
+            success: false,
+            body: {
+              message: 'The node you select is not a Frame node!',
+            },
+          });
+          return;
+        }
+        sendMessageToUI({
+          type: 'response',
+          method: 'select-source-node',
+          success: false,
+          body: {
+            message: 'The node you select is not a single node!',
+          },
+        });
+      });
+      return;
+    }
+    return;
+  }
+
+  console.log(`Unkndown message type "${message.type}", close plugin.`);
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
   figma.closePlugin();

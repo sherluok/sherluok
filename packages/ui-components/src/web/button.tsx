@@ -1,5 +1,5 @@
-import { Merge } from '^/base/common/type';
-import { cx } from '^/base/web/css';
+import { cx } from '^/common/css';
+import { Merge } from '^/common/type';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import './animation.css';
 import { button } from './button.css';

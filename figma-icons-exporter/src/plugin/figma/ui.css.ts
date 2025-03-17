@@ -87,5 +87,14 @@ export const targets = {
   content: style({
     gridColumn: '2 / 3',
     font: '400 12px/16px Inter',
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: 6,
   }),
 };
+
+export const desciption = style({
+  font: '300 11px/16px Inter',
+  color: 'oklch(from white l c h / 48%)',
+  userSelect: 'none',
+});

@@ -1,17 +1,12 @@
 {
-  "extends": "../tsconfig.bundler.json",
+  "extends": "../../tsconfig.bundler.json",
   "include": [
-    "./scripts/**/*",
     "./src/**/*",
   ],
   "compilerOptions": {
     "lib": [
       "ESNext",
       "DOM",
-    ],
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@figma",
     ],
     "paths": {
       "^/*": [
