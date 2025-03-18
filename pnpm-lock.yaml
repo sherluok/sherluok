@@ -46,11 +46,11 @@ importers:
         specifier: ^22.13.10
         version: 22.13.10
       '@types/react':
-        specifier: ^19.0.10
-        version: 19.0.10
+        specifier: ^19.0.11
+        version: 19.0.11
       '@types/react-dom':
         specifier: ^19.0.4
-        version: 19.0.4(@types/react@19.0.10)
+        version: 19.0.4(@types/react@19.0.11)
       '@vanilla-extract/esbuild-plugin':
         specifier: ^2.3.15
         version: 2.3.15(esbuild@0.25.1)
@@ -60,44 +60,6 @@ importers:
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
-      typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
-
-  packages/base:
-    dependencies:
-      '@vanilla-extract/css':
-        specifier: ^1.17.1
-        version: 1.17.1
-      '@vanilla-extract/recipes':
-        specifier: ^0.5.5
-        version: 0.5.5(@vanilla-extract/css@1.17.1)
-      react:
-        specifier: ^19.0.0
-        version: 19.0.0
-    devDependencies:
-      '@types/react':
-        specifier: ^19.0.10
-        version: 19.0.10
-      typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
-
-  packages/ui-components:
-    dependencies:
-      '@vanilla-extract/css':
-        specifier: ^1.17.1
-        version: 1.17.1
-      '@vanilla-extract/recipes':
-        specifier: ^0.5.5
-        version: 0.5.5(@vanilla-extract/css@1.17.1)
-      react:
-        specifier: ^19.0.0
-        version: 19.0.0
-    devDependencies:
-      '@types/react':
-        specifier: ^19.0.10
-        version: 19.0.10
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -370,8 +332,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
-  '@types/react@19.0.10':
-    resolution: {integrity: sha512-JuRQ9KXLEjaUNjTWpzuR231Z2WpIwczOkBEIvbHNCzQefFIT0L8IqE6NV6ULLyC1SI/i234JnDoMkfg+RjQj2g==}
+  '@types/react@19.0.11':
+    resolution: {integrity: sha512-vrdxRZfo9ALXth6yPfV16PYTLZwsUWhVjjC+DkfE5t1suNSbBrWC9YqSuuxJZ8Ps6z1o2ycRpIqzZJIgklq4Tw==}
 
   '@vanilla-extract/babel-plugin-debug-ids@1.2.0':
     resolution: {integrity: sha512-z5nx2QBnOhvmlmBKeRX5sPVLz437wV30u+GJL+Hzj1rGiJYVNvgIIlzUpRNjVQ0MgAgiQIqIUbqPnmMc6HmDlQ==}
@@ -852,11 +814,11 @@ snapshots:
     dependencies:
       undici-types: 6.20.0
 
-  '@types/react-dom@19.0.4(@types/react@19.0.10)':
+  '@types/react-dom@19.0.4(@types/react@19.0.11)':
     dependencies:
-      '@types/react': 19.0.10
+      '@types/react': 19.0.11
 
-  '@types/react@19.0.10':
+  '@types/react@19.0.11':
     dependencies:
       csstype: 3.1.3
 

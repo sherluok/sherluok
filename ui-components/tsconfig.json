@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.bundler.json",
+  "extends": "../tsconfig.bundler.json",
   "include": [
     "./src/**/*",
   ],
