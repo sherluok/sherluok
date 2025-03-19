@@ -1,7 +1,8 @@
-import { Merge } from '^/base/common/type';
-import { cx } from '^/base/web/css';
+import { cx } from '^/base/css';
 import { ButtonHTMLAttributes, Children, createElement, HTMLAttributes, InputHTMLAttributes, ReactElement, ReactNode, TextareaHTMLAttributes } from 'react';
 import { button, checkbox, input, segmented, select } from './styled.css';
+
+type Merge<A, B> = Omit<A, keyof B> & B;
 
 type CheckboxProps = {
   className?: string;
@@ -171,9 +172,9 @@ type SegmentedControlProps<T> = {
 
 
 export function SegmentedControl<T>(props: Merge<HTMLAttributes<HTMLElement>, SegmentedControlProps<T>>) {
-  const { className, disabled = false, readOnly = false, size = 'medium', value, onChange, children, ...restProps } = props;
+  const { className, disabled = false, readOnly = false, tabIndex = 0, size = 'medium', value, onChange, children, ...restProps } = props;
   return (
-    <div className={cx(segmented.control({ disabled, readOnly, size }), className)} {...restProps}>
+    <div className={cx(segmented.control({ disabled, readOnly, size }), className)} tabIndex={tabIndex} {...restProps}>
       {Children.map(children, (node) => {
         const { className, value, ...restProps } = node.props;
         const active = props.value === node.props.value;

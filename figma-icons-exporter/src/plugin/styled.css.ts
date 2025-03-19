@@ -1,5 +1,99 @@
-import { createVar, keyframes, style } from '@vanilla-extract/css';
+import { createVar, globalStyle, keyframes, style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
+
+export const borderRadius = createVar();
+export const baseBackground = createVar();
+export const primaryForeground = createVar();
+export const secondaryForeground = createVar();
+export const placeholderTextColor = createVar();
+export const disabledForeground = createVar();
+export const inputBackground = createVar();
+export const inputBackgroundHover = createVar();
+export const inputBackgroundDisabled = createVar();
+export const inputBoxShadow = createVar();
+export const inputBoxShadowHover = createVar();
+export const inputBoxShadowDisabled = createVar();
+export const controlBackground = createVar();
+export const controlBackgroundHover = createVar();
+export const controlBackgroundDisabled = createVar();
+export const controlBoxShadow = createVar();
+export const controlBoxShadowHover = createVar();
+export const controlBoxShadowDisabled = createVar();
+export const accentBackground = createVar();
+export const accentBackgroundHover = createVar();
+export const focusRing = createVar();
+
+globalStyle('html', {
+  color: primaryForeground,
+  background: baseBackground,
+  vars: {
+    [borderRadius]: '3px',
+  },
+  '@media': {
+    '(prefers-color-scheme: light)': {
+      colorScheme: 'light',
+      vars: {
+        [baseBackground]: 'oklch(from white 92% c h)',
+        [primaryForeground]: 'oklch(from white 0% c h)',
+        [secondaryForeground]: 'oklch(from white 24% c h)',
+        [placeholderTextColor]: 'oklch(from white 48% c h)',
+        [disabledForeground]: 'oklch(from white 64% c h)',
+
+        [inputBackground]: 'oklch(from white 98% c h)',
+        [inputBackgroundHover]: 'oklch(from white 24% c h)',
+        [inputBackgroundDisabled]: 'oklch(from white 26% c h)',
+
+        [inputBoxShadow]: 'inset 0 0 0 1px oklch(from white 86% c h)',
+        [inputBoxShadowHover]: 'inset 0 0 0 1px oklch(from white 44% c h)',
+        [inputBoxShadowDisabled]: 'inset 0 0 0 1px oklch(from white 38% c h)',
+
+        [controlBackground]: 'oklch(from white 88% c h)',
+        [controlBackgroundHover]: 'oklch(from white 44% c h)',
+        [controlBackgroundDisabled]: 'oklch(from white 36% c h)',
+
+        [controlBoxShadow]: 'inset 0 0 0 1px oklch(from white 80% c h)',
+        [controlBoxShadowHover]: 'inset 0 0 0 1px oklch(from white 52% c h)',
+        [controlBoxShadowDisabled]: 'inset 0 0 0 1px oklch(from white 48% c h)',
+
+        [accentBackground]: 'oklch(62% 42% 250)',
+        [accentBackgroundHover]: 'oklch(70% 42% 250)',
+
+        [focusRing]: '3px solid oklch(62% 42% 250 / 50%)',
+      },
+    },
+    '(prefers-color-scheme: dark)': {
+      colorScheme: 'dark',
+      vars: {
+        [baseBackground]: 'oklch(from white 29% c h)',
+        [primaryForeground]: 'oklch(from white 100% c h)',
+        [secondaryForeground]: 'oklch(from white 72% c h)',
+        [placeholderTextColor]: 'oklch(from white 56% c h)',
+        [disabledForeground]: 'oklch(from white 48% c h)',
+
+        [inputBackground]: 'oklch(from white 24% c h)',
+        [inputBackgroundHover]: 'oklch(from white 24% c h)',
+        [inputBackgroundDisabled]: 'oklch(from white 26% c h)',
+
+        [inputBoxShadow]: 'inset 0 0 0 1px oklch(from white 38% c h)',
+        [inputBoxShadowHover]: 'inset 0 0 0 1px oklch(from white 44% c h)',
+        [inputBoxShadowDisabled]: 'inset 0 0 0 1px oklch(from white 38% c h)',
+
+        [controlBackground]: 'oklch(from white 40% c h)',
+        [controlBackgroundHover]: 'oklch(from white 44% c h)',
+        [controlBackgroundDisabled]: 'oklch(from white 36% c h)',
+
+        [controlBoxShadow]: 'inset 0 0 0 1px oklch(from white 48% c h)',
+        [controlBoxShadowHover]: 'inset 0 0 0 1px oklch(from white 52% c h)',
+        [controlBoxShadowDisabled]: 'inset 0 0 0 1px oklch(from white 48% c h)',
+
+        [accentBackground]: 'oklch(62% 42% 250)',
+        [accentBackgroundHover]: 'oklch(70% 42% 250)',
+
+        [focusRing]: '3px solid oklch(62% 42% 250 / 50%)',
+      },
+    },
+  },
+});
 
 const angle = createVar({
   syntax: '<angle>',
@@ -35,14 +129,14 @@ export const checkbox = {
       border: 'none',
       outline: 'none',
       ':focus-visible': {
-        outlineOffset: '1px',
-        outline: '3px solid oklch(62% 42% 250 / 50%)',
+        outlineOffset: 1,
+        outline: focusRing,
       },
     },
     variants: {
       component: {
         checkbox: {
-          borderRadius: 3,
+          borderRadius,
         },
         radio: {
           borderRadius: 999,
@@ -57,21 +151,21 @@ export const checkbox = {
       checked: {
         false: {
           color: 'transparent',
-          background: 'oklch(from white l c h / 16%)',
-          boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 12%)',
+          background: controlBackground,
+          boxShadow: controlBoxShadow,
           selectors: {
             [`${checkboxContainer}:hover &`]: {
-              background: 'oklch(from white l c h / 24%)',
-              boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 16%)',
+              background: controlBackgroundHover,
+              boxShadow: controlBoxShadowHover,
             },
           },
         },
         true: {
           color: 'white',
-          background: 'oklch(62% 42% 250)',
+          background: accentBackground,
           selectors: {
             [`${checkboxContainer}:hover &`]: {
-              background: 'oklch(70% 50% 250)',
+              background: accentBackgroundHover,
             },
           },
         },
@@ -112,20 +206,21 @@ export const button = recipe({
     justifyContent: 'center',
     columnGap: 4,
     font: '500 12px/16px Inter',
-    borderRadius: 3,
+    borderRadius,
     ':focus-visible': {
-      outlineOffset: '1px',
-      outline: '3px solid oklch(62% 42% 250 / 50%)',
+      outlineOffset: 1,
+      outline: focusRing,
     },
   },
   variants: {
     disabled: {
-      false: {},
+      false: {
+      },
       true: {
         pointerEvents: 'none',
-        background: 'oklch(from white l c h / 8%)',
-        boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 6%)',
-        color: 'oklch(from white l c h / 48%)',
+        background: controlBackground,
+        boxShadow: controlBoxShadow,
+        color: disabledForeground,
       },
     },
     size: {
@@ -184,13 +279,16 @@ export const button = recipe({
         color: 'secondary',
       },
       style: {
-        background: 'oklch(from white l c h / 16%)',
-        boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 12%)',
+        color: primaryForeground,
+        background: controlBackground,
+        boxShadow: controlBoxShadow,
         ':hover': {
-          background: 'oklch(from white l c h / 24%)',
+          background: controlBackgroundHover,
+          boxShadow: controlBoxShadowHover,
         },
         ':active': {
-          background: 'oklch(from white l c h / 16%)',
+          background: controlBackground,
+          boxShadow: controlBoxShadow,
         },
       },
     },
@@ -200,43 +298,41 @@ export const button = recipe({
         color: 'primary',
       },
       style: {
-        background: 'oklch(62% 42% 250)',
         boxShadow: 'none',
+        color: primaryForeground,
+        background: accentBackground,
         ':hover': {
-          background: 'oklch(72% 42% 250)',
+          background: accentBackgroundHover,
         },
         ':active': {
-          background: 'oklch(62% 42% 250)',
+          background: accentBackground,
         },
       },
     },
   ],
-  defaultVariants: {
-    disabled: false,
-    size: 'medium',
-    color: 'secondary',
-  }
 });
 
 export const input = recipe({
   base: {
     margin: 0,
+    minWidth: '8em',
     border: 'none',
     outline: 'none',
     boxSizing: 'border-box',
     font: '400 12px/16px Inter',
-    borderRadius: 3,
-    background: 'oklch(from black l c h / 36%)',
-    boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 16%)',
-    color: 'white',
+    borderRadius,
+    background: inputBackground,
+    boxShadow: inputBoxShadow,
+    color: primaryForeground,
     ':hover': {
-      boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 24%)',
+      background: inputBackgroundHover,
+      boxShadow: inputBoxShadowHover,
     },
-    ':focus': {
-      boxShadow: 'inset 0 0 0 2px oklch(62% 42% 250)',
+    ':focus-visible': {
+      boxShadow: `inset 0 0 0 2px ${accentBackground}`,
     },
     '::placeholder': {
-      color: 'oklch(64% 0% 0)',
+      color: placeholderTextColor,
     },
   },
   variants: {
@@ -255,9 +351,9 @@ export const input = recipe({
       false: {},
       true: {
         pointerEvents: 'none',
-        background: 'oklch(from black l c h / 12%)',
-        boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 8%)',
-        color: 'oklch(from white l c h / 48%)',
+        background: inputBackgroundDisabled,
+        boxShadow: inputBoxShadowDisabled,
+        color: disabledForeground,
       },
     },
     readOnly: {
@@ -289,16 +385,26 @@ export const select = {
       alignItems: 'center',
       gridTemplateColumns: 'minmax(0, 1fr) auto',
       font: '500 12px/16px Inter',
-      borderRadius: 3,
+      borderRadius,
+      background: controlBackground,
+      boxShadow: controlBoxShadow,
+      ':hover': {
+        background: controlBackgroundHover,
+        boxShadow: controlBoxShadowHover,
+      },
+      ':focus-visible': {
+        outlineOffset: 1,
+        outline: focusRing,
+      },
     },
     variants: {
       disabled: {
         false: {},
         true: {
           pointerEvents: 'none',
-          background: 'oklch(from white l c h / 8%)',
-          boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 6%)',
-          color: 'oklch(from white l c h / 48%)',
+          background: controlBackgroundDisabled,
+          boxShadow: controlBoxShadowDisabled,
+          color: disabledForeground,
         },
       },
       size: {
@@ -324,51 +430,17 @@ export const select = {
           fontWeight: 600,
         },
       },
-      color: {
-        secondary: {},
-        primary: {},
-      },
     },
-    compoundVariants: [
-      {
-        variants: {
-          disabled: false,
-          color: 'secondary',
-        },
-        style: {
-          background: 'oklch(from white l c h / 16%)',
-          boxShadow: 'inset 0 0 0 1px oklch(from white l c h / 12%)',
-          ':focus': {
-            boxShadow: 'inset 0 0 0 2px oklch(62% 42% 250)',
-          },
-        },
-      },
-      {
-        variants: {
-          disabled: false,
-          color: 'primary',
-        },
-        style: {
-          background: 'oklch(62% 42% 250)',
-          boxShadow: 'none',
-        },
-      },
-    ],
-    defaultVariants: {
-      disabled: false,
-      size: 'medium',
-      color: 'secondary',
-    }
   }),
   body: style({
     userSelect: 'none',
     font: '400 12px/16px Inter',
-    color: 'white',
+    color: primaryForeground,
   }),
   placeholder: style({
     userSelect: 'none',
     font: '400 12px/16px Inter',
-    color: 'oklch(from white l c h / 60%)',
+    color: placeholderTextColor,
   }),
   indicator: {
     container: style({
@@ -377,7 +449,7 @@ export const select = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      color: 'oklch(from white l c h / 48%)',
+      color: secondaryForeground,
       marginInline: 0,
     }),
     svg: style({
@@ -391,29 +463,32 @@ export const segmented = {
   control: recipe({
     base: {
       margin: 0,
-      padding: 2,
+      padding: 1,
       border: 'none',
       outline: 'none',
       userSelect: 'none',
-      height: 22,
-      // boxSizing: 'border-box',
+      height: 24,
+      boxSizing: 'border-box',
       display: 'flex',
       alignItems: 'stretch',
       justifyContent: 'stretch',
-      columnGap: 2,
-      borderRadius: 4,
+      columnGap: 0,
+      borderRadius: `calc(${borderRadius} + 1px)`,
       font: '500 12px/16px Inter',
-      background: 'oklch(from white 24% c h)',
-      boxShadow: 'inset 0 0 0 1px oklch(from white 20% c h)',
+      background: inputBackground,
+      boxShadow: `inset 0 0 0 1px oklch(from ${inputBackground} calc(l - .12) c h)`,
       ':focus-visible': {
-        outlineOffset: '1px',
-        outline: '3px solid oklch(62% 42% 250 / 50%)',
+        outlineOffset: 1,
+        outline: focusRing,
       },
     },
     variants: {
       disabled: {
         false: {},
-        true: {},
+        true: {
+          background: inputBackgroundDisabled,
+          boxShadow: `inset 0 0 0 1px oklch(from ${inputBackgroundDisabled} calc(l - .12) c h)`,
+        },
       },
       readOnly: {
         false: {},
@@ -435,7 +510,7 @@ export const segmented = {
   item: recipe({
     base: {
       paddingInline: 12,
-      borderRadius: 2,
+      borderRadius,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -444,17 +519,17 @@ export const segmented = {
     variants: {
       active: {
         false: {
-          color: 'oklch(from white 72% c h)',
+          color: secondaryForeground,
           ':hover': {
-            color: 'oklch(from white 100% c h)',
+            color: primaryForeground,
           },
         },
         true: {
-          color: 'oklch(from white 100% c h)',
-          background: 'oklch(from white 40% c h)',
+          color: primaryForeground,
+          background: controlBackground,
           boxShadow: [
-            'inset 0 0 0 1px oklch(from white l c h / 12%)',
-            '0 0 0 1px oklch(from white 12% c h)',
+            controlBoxShadow,
+            `0 0 0 1px oklch(from ${inputBackground} calc(l - .12) c h)`,
           ].join(','),
         },
       },

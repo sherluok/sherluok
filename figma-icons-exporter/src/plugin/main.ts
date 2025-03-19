@@ -1,12 +1,14 @@
-import { normalizeWindingRule, stringifyPath, translatePath } from '^/base/common/path-data';
-import { findFrameNode, outlineStroke, parsePathData, stringifySolidPaint, unionByFillStyle } from '^/base/figma/plugin';
+import { findFrameNode, outlineStroke, parsePathData, stringifySolidPaint, unionByFillStyle } from '^/base/figma';
+import { normalizeWindingRule, stringifyPath, translatePath } from '^/base/path-data';
 import { PluginMessageFromUI, sendMessageToUI, sendPendingMessageToUI } from './message';
 
 console.clear();
 
+// https://www.figma.com/plugin-docs/api/properties/figma-showui/
 figma.showUI(__html__, {
   width: 400,
   height: 720,
+  themeColors: true,
 });
 
 figma.ui.on('message', async (pluginMessage: unknown): Promise<void> => {

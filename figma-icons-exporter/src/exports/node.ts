@@ -1,7 +1,7 @@
+import { ExportData } from '^/exports/common';
+import { validateExportData } from '^/exports/zod';
 import { writeFile } from 'node:fs/promises';
 import { IncomingMessage } from 'node:http';
-import { ExportData } from '../exports/common';
-import { validateExportData } from '../exports/zod';
 
 export async function handleExportRequest(req: IncomingMessage): Promise<ExportData> {
   const buffer = await new Promise<Buffer>((resolve, reject) => {

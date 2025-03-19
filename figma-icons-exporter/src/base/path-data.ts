@@ -1,4 +1,3 @@
-import { ok } from './assert';
 import { calcPolygonArea, getCubicBezierPolyline, getPolygonBoundingBox, getQuadraticBezierPolyline, isPointInPolygon, Point } from './geometry';
 
 export type PathCommand = [
@@ -386,7 +385,9 @@ function* getPathDataPolyine(commands: Iterable<PathCommand>, step: number): Gen
         break;
       }
       case 'Q': {
-        ok(currentPoint);
+        if (!currentPoint) {
+          throw new Error('Unexpected start command Q!');
+        }
         yield* drop(getQuadraticBezierPolyline({
           startingPoint: currentPoint,
           controlPoint: command.controlPoint,
@@ -396,7 +397,9 @@ function* getPathDataPolyine(commands: Iterable<PathCommand>, step: number): Gen
         break;
       }
       case 'C':
-        ok(currentPoint);
+        if (!currentPoint) {
+          throw new Error('Unexpected start command C!');
+        }
         yield* drop(getCubicBezierPolyline({
           startingPoint: currentPoint,
           startControlPoint: command.startControlPoint,

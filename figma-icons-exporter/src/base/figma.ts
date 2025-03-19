@@ -1,5 +1,5 @@
-import { MapSet } from '^/base/common/collection';
-import { ClosePathCommand, CubicBezierPathCommand, LineToPathCommand, MoveToPathCommand, PathCommand, QuadraticBezierPathCommand } from '^/base/common/path-data';
+import { MapSet } from './collection';
+import { ClosePathCommand, CubicBezierPathCommand, LineToPathCommand, MoveToPathCommand, PathCommand, QuadraticBezierPathCommand } from './path-data';
 
 export function findFrameNode(frameNodeName: string, parent: ChildrenMixin = figma.currentPage): FrameNode | null {
   for (const node of parent.children) {
