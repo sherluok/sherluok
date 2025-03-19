@@ -8,9 +8,9 @@ import { resolve } from 'path';
 
 esbuild.context({
   entryPoints: [
-    resolve('src/plugin/figma/main.ts'),
-    resolve('src/plugin/figma/ui.tsx'),
-    resolve('src/server/web/index.tsx'),
+    resolve('src/plugin/main.ts'),
+    resolve('src/plugin/ui.tsx'),
+    resolve('src/server/ui.tsx'),
   ],
   outdir: 'build',
   target: 'es6',
@@ -27,11 +27,11 @@ esbuild.context({
           console.log('[build end]', new Date().toLocaleString());
           result.errors.forEach((message) => console.error(message.text));
           result.warnings.forEach((message) => console.warn(message.text));
-          const inlinStyle = await readFile(resolve('build/plugin/figma/ui.css'), 'utf-8');
-          const inlineScript = await readFile(resolve('build/plugin/figma/ui.js'), 'utf-8');
-          const templateHtml = await readFile(resolve('src/plugin/figma/ui.html'), 'utf-8');
+          const inlinStyle = await readFile(resolve('build/plugin/ui.css'), 'utf-8');
+          const inlineScript = await readFile(resolve('build/plugin/ui.js'), 'utf-8');
+          const templateHtml = await readFile(resolve('src/plugin/ui.html'), 'utf-8');
 
-          writeFile(resolve('build/plugin/figma/ui.html'), [
+          writeFile(resolve('build/plugin/ui.html'), [
             '<style>',
             inlinStyle,
             '</style>',
@@ -42,10 +42,10 @@ esbuild.context({
           ].join('\n'));
 
           createReadStream(
-            resolve('src/server/web/index.html'),
+            resolve('src/server/ui.html'),
           ).pipe(
             createWriteStream(
-              resolve('build/server/web/index.html'),
+              resolve('build/server/ui.html'),
             ),
           );
         });

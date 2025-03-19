@@ -30,8 +30,6 @@ pnpm run watch
 
 ## 参考资料
 
-E:\old\_github\workspace\peatip\integrations\figma-icon-plugin
-
 - [esbuild](https://esbuild.github.io/getting-started/#build-scripts)
 - [How to work with syntax trees in TypeScript](https://unifiedjs.com/learn/guide/syntax-trees-typescript/#xast-xml)
 - [Traversing trees with TypeScript](https://unifiedjs.com/learn/recipe/tree-traversal-typescript/)

@@ -1,0 +1,19 @@
+{
+  "search.useIgnoreFiles": true,
+  "explorer.excludeGitIgnore": true,
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.associations": {
+    "**/*.env": "properties"
+  },
+  "npm.packageManager": "pnpm",
+  "typescript.tsc.autoDetect": "off",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.tsdk": "node_modules/typescript/lib",
+}

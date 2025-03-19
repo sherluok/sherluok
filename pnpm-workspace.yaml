@@ -1,3 +1,5 @@
 packages:
-  - ./packages/*
   - ./figma-icons-exporter
+  - ./sherluok.com
+  - ./ui-components
+  - ./vscode-problem-matcher

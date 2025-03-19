@@ -1,5 +1,5 @@
-import { getFixedPathDataString } from '^/fix';
 import { MapSet } from '^/base/common/collection';
+import { ClosePathCommand, CubicBezierPathCommand, LineToPathCommand, MoveToPathCommand, PathCommand, QuadraticBezierPathCommand } from '^/base/common/path-data';
 
 export function findFrameNode(frameNodeName: string, parent: ChildrenMixin = figma.currentPage): FrameNode | null {
   for (const node of parent.children) {
@@ -88,74 +88,45 @@ export function stringifySolidPaint(paint: SolidPaint, pathThrough = 0) {
  * @see https://www.figma.com/plugin-docs/api/properties/VectorPath-data/
  * @see https://www.figma.com/plugin-docs/api/VectorPath/
  */
-export namespace FigmaVectorPathData {
-  export type Command = [
-    ['M', x: number, y: number],
-    ['L', x: number, y: number],
-    ['Q', x0: number, y0: number, x: number, y: number],
-    ['C', x0: number, y0: number, x1: number, y1: number, x: number, y: number],
-    ['Z'],
-  ][number];
-
-  export type Commands = Command[];
-
-  export function * parse(data: string): Generator<Command> {
-    const components = data.split(' ');
-    for (let i = 0; i < components.length; ++i) {
-      const c = components[i];
-      if (c === 'M' || c === 'L') {
-        yield [
-          c,
+export function * parsePathData(data: string): Generator<PathCommand> {
+  const components = data.split(' ');
+  for (let i = 0; i < components.length; i += 1) {
+    switch (components[i]) {
+      case 'M':
+        yield new MoveToPathCommand(
           parseFloat(components[++i]),
           parseFloat(components[++i]),
-        ];
-      } else if (c === 'Q') {
-        yield [
-          c,
+        );
+        break;
+      case 'L':
+        yield new LineToPathCommand(
+          parseFloat(components[++i]),
+          parseFloat(components[++i]),
+        );
+        break;
+      case 'Q':
+        yield new QuadraticBezierPathCommand(
           parseFloat(components[++i]),
           parseFloat(components[++i]),
           parseFloat(components[++i]),
           parseFloat(components[++i]),
-        ];
-      } else if (c === 'C') {
-        yield [
-          c,
+        );
+        break;
+      case 'C':
+        yield new CubicBezierPathCommand(
           parseFloat(components[++i]),
           parseFloat(components[++i]),
           parseFloat(components[++i]),
           parseFloat(components[++i]),
           parseFloat(components[++i]),
           parseFloat(components[++i]),
-        ];
-      } else if (c === 'Z') {
-        yield [c];
-      } else {
-        throw new Error(`Unknown command: ${c}`);
-      }
+        );
+        break;
+      case 'Z':
+        yield new ClosePathCommand();
+        break;
+      default:
+        throw new Error(`Unknown command ${components[i]} at index ${i} of ${data}`);
     }
-  }
-
-  export function translate(commands: Commands, x: number, y: number): Commands {
-    return commands.map((it) => {
-      switch (it[0]) {
-        case 'M':
-        case 'L':
-          return [it[0], it[1] + x, it[2] + y];
-        case 'Q':
-          return [it[0], it[1] + x, it[2] + y, it[3] + x, it[4] + y];
-        case 'C':
-          return [it[0], it[1] + x, it[2] + y, it[3] + x, it[4] + y, it[5] + x, it[6] + y];
-        default:
-          return [it[0]];
-      }
-    });
-  }
-
-  export function stringify(commands: Commands): string {
-    return commands.flat().join(' ');
-  }
-
-  export function nonezero(commands: Commands): Commands {
-    return [...parse(getFixedPathDataString(stringify(commands)))];
   }
 }
