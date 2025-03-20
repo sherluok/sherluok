@@ -23,6 +23,8 @@ export const accentBackground = createVar();
 export const accentBackgroundHover = createVar();
 export const focusRing = createVar();
 
+// https://www.figma.com/plugin-docs/css-variables/
+
 globalStyle('html', {
   color: primaryForeground,
   background: baseBackground,
@@ -33,7 +35,7 @@ globalStyle('html', {
     '(prefers-color-scheme: light)': {
       colorScheme: 'light',
       vars: {
-        [baseBackground]: 'oklch(from white 92% c h)',
+        [baseBackground]: 'var(--figma-color-bg, oklch(from white 92% c h))',
         [primaryForeground]: 'oklch(from white 0% c h)',
         [secondaryForeground]: 'oklch(from white 24% c h)',
         [placeholderTextColor]: 'oklch(from white 48% c h)',
@@ -64,7 +66,7 @@ globalStyle('html', {
     '(prefers-color-scheme: dark)': {
       colorScheme: 'dark',
       vars: {
-        [baseBackground]: 'oklch(from white 29% c h)',
+        [baseBackground]: 'var(--figma-color-bg, oklch(from white 29% c h))',
         [primaryForeground]: 'oklch(from white 100% c h)',
         [secondaryForeground]: 'oklch(from white 72% c h)',
         [placeholderTextColor]: 'oklch(from white 56% c h)',

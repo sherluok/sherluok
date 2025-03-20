@@ -1,45 +1,101 @@
-import { useEffect, useState } from 'react';
+import { openTunnel } from '^/base/rpc';
+import { useCallback, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createMemoryRouter, RouterProvider } from 'react-router';
-import { Language, useLabels } from './locale';
-import { requestSelectSourceNode, sendMessageToMain, watchMessageToUI } from './message';
+import { createMemoryRouter, RouterProvider, useLoaderData } from 'react-router';
+import { Observable } from 'rxjs';
+import { createLabelsGetter } from './i18n';
+import { ExportOptions, Language, MainProcessService, RenderProcessService } from './protocol';
 import { Button, Checkbox, Radio, SegmentedControl, SegmentedItem, Select, TextArea, TextInput } from './styled';
 import * as s from './ui.css';
 
-function useInputProps<T>(initialValue: T) {
-  const [value, onChange] = useState<T>(initialValue);
+const tunnel = openTunnel({
+  encode: (message) => message,
+  decode: (encoded) => encoded,
+  listen() {
+    return new Observable((observer) => {
+      window.addEventListener('message', (event) => {
+        observer.next(event.data.pluginMessage);
+      });
+    });
+  },
+  send(encoded) {
+    window.parent.postMessage({ pluginMessage: encoded }, '*');
+  },
+});
+
+tunnel.serve<RenderProcessService>({
+  async test() {
+    return 5678;
+  },
+});
+
+const client = tunnel.proxy<MainProcessService>();
+
+function useInputProps<T>(initialValue: T, hookChange?: (value: T) => void) {
+  const [value, setValue] = useState<T>(initialValue);
+  const onChange = useCallback((value: T) => {
+    hookChange?.(value);
+    setValue(value);
+  }, []);
   return { value, onChange };
 }
 
-function useCheckboxProps(initialValue: boolean) {
-  const [checked, onChange] = useState(initialValue);
+function useCheckboxProps(initialValue: boolean, hookChange?: (value: boolean) => void) {
+  const [checked, setChecked] = useState(initialValue);
+  const onChange = useCallback((value: boolean) => {
+    hookChange?.(value);
+    setChecked(value);
+  }, []);
   return { checked, onChange };
+}
+
+async function getConfiguration() {
+  const language = await client.getLanguage();
+  const presets = await client.getPresets();
+  const config = {
+    language,
+    presets,
+  };
+  console.log('getConfiguration():', config);
+  return config;
 }
 
 // Creating a User Interface
 // https://www.figma.com/plugin-docs/creating-ui/
-function MainPage() {
-  const i18n = useLabels();
+export function MainPage() {
+  const config = useLoaderData<typeof getConfiguration>();
+
+
+  const language = useInputProps<Language>(config.language, (value) => {
+    client.setLanguage(value).catch(console.error);
+  });
+
+  const i18n = useMemo(() => createLabelsGetter(language.value), [language.value]);
+
+  const currentPreset = config.presets.options.find((it) => it.id === config.presets.selection);
+  if (!currentPreset) {
+    throw config.presets;
+  }
 
   const [isExporting, setExporting] = useState(false);
   const [logMessages, setLogMessages] = useState('');
 
-  const iconsSourceNodeName = useInputProps('');
-  const createFigmaComponent = useCheckboxProps(true);
-  const iconsCreateComponentNodeName = useInputProps('');
-  const sendToServer = useCheckboxProps(false);
-  const httpEnpoint = useInputProps('http://localhost:3974/api/figma-icons-exporter');
-  const saveAsJson = useCheckboxProps(false);
-  const jsonTypescripDeclaration = useCheckboxProps(false);
+  const iconsSourceNodeName = useInputProps(currentPreset.sourceNode?.name ?? '');
+  const createFigmaComponent = useCheckboxProps(!!currentPreset.exportOptions?.createComponent);
+  const iconsCreateComponentNodeName = useInputProps(currentPreset.exportOptions?.createComponent?.node.name ?? '');
+  const sendToServer = useCheckboxProps(!!currentPreset.exportOptions?.sendToServer);
+  const httpEnpoint = useInputProps(currentPreset.exportOptions?.sendToServer?.httpEndpoint ?? 'http://localhost:3974/api/figma-icons-exporter');
+  const saveAsJson = useCheckboxProps(!!currentPreset.exportOptions?.saveJson);
+  const jsonTypescripDeclaration = useCheckboxProps(!!currentPreset.exportOptions?.saveJson?.typesciptDelcaration);
   const saveAsTypeScript = useCheckboxProps(false);
   const saveAsReactComponent = useCheckboxProps(false);
 
   const [isPickingSourceNode, setPickingSourceNode] = useState(false);
   const onPickSourceNode = () => {
     setPickingSourceNode(true);
-    requestSelectSourceNode().then((data) => {
-      console.log(data);
-      iconsSourceNodeName.onChange(data.nodeName);
+    client.selectSourceNode().then((node) => {
+      console.log({ node });
+      iconsSourceNodeName.onChange(node.name);
     }).catch((error) => {
       console.error(error);
     }).finally(() => {
@@ -54,60 +110,57 @@ function MainPage() {
   const handleSubmit = async () => {
     setExporting(true);
     setLogMessages('');
-    sendMessageToMain({
-      type: 'export',
-      data: {
-        createComponent: createFigmaComponent.checked && iconsCreateComponentNodeName.value ? {
-          nodeName: iconsCreateComponentNodeName.value,
-        } : undefined,
-        sendToServer: sendToServer.checked && httpEnpoint.value ? {
-          httpEndpoint: httpEnpoint.value,
-        } : undefined,
-        saveJson: saveAsJson.checked ? {
-          typesciptDelcaration: jsonTypescripDeclaration.checked,
-        } : undefined,
+    const exportOptions: ExportOptions = {
+      createComponent: createFigmaComponent.checked && iconsCreateComponentNodeName.value ? {
+        node: {
+          name: iconsCreateComponentNodeName.value,
+        },
+      } : undefined,
+      sendToServer: sendToServer.checked && httpEnpoint.value ? {
+        httpEndpoint: httpEnpoint.value,
+      } : undefined,
+      saveJson: saveAsJson.checked ? {
+        typesciptDelcaration: jsonTypescripDeclaration.checked,
+      } : undefined,
+    };
+    const currentPreset = config.presets.options.find((it) => it.id === config.presets.selection);
+    if (currentPreset) {
+      client.updatePreset({
+        ...currentPreset,
+        exportOptions,
+      }).catch(console.error);
+    }
+    client.export(exportOptions).subscribe({
+      next(log) {
+        setLogMessages((value) => value + log.message + '\n');
+      },
+      complete() {
+        setExporting(false);
+      },
+      error() {
+        setExporting(false);
       },
     });
   };
 
-  useEffect(() => {
-    const subscription = watchMessageToUI().subscribe((message) => {
-      if (message.type === 'export-result') {
-        if (message.data.state === 'pending') {
-          setLogMessages((value) => value + message.data.message + '\n');
-        } else if (message.data.state === 'fulfilled') {
-          setExporting(false);
-          setLogMessages((value) => value + message.data.message + '\n');
-        } else if (message.data.state === 'rejected') {
-          setExporting(false);
-          setLogMessages((value) => value + message.data.message + '\n');
-        }
-      }
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const presets = [
-    {
-      id: 0,
-      mutable: false,
-      label: i18n.presetTemporary,
-    },
-    {
-      id: 1,
-      mutable: true,
-      label: 'Peatip Studio',
-    },
-    {
-      id: 2,
-      mutable: true,
-      label: '福立盟',
-    },
-  ];
-
-  const language = useInputProps<Language>(Language.enUS);
+  // const presets = [
+  //   {
+  //     id: 0,
+  //     mutable: false,
+  //     label: i18n.presetTemporary,
+  //   },
+  //   {
+  //     id: 1,
+  //     mutable: true,
+  //     label: 'Peatip Studio',
+  //   },
+  //   {
+  //     id: 2,
+  //     mutable: true,
+  //     label: '福立盟',
+  //   },
+  // ];
+  const selectedPresetId = useInputProps<number>(config.presets.selection);
 
   return (
     <div>
@@ -116,12 +169,12 @@ function MainPage() {
           <span className={s.group.title}>{i18n.presetInGroupTitle}</span>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 16, rowGap: 12, justifyContent: 'space-between', alignItems: 'center' }}>
-          <Select placeholder="Choose Preset" options={presets} getValue={(it) => it.id} value={0}>
-            {(option) => option.label}
+          <Select placeholder="Choose Preset" options={config.presets.options} getValue={(it) => it.id} {...selectedPresetId}>
+            {(option) => option.name}
           </Select>
           <SegmentedControl {...language}>
-            <SegmentedItem value={Language.zhCN}>中文</SegmentedItem>
-            <SegmentedItem value={Language.enUS}>English</SegmentedItem>
+            <SegmentedItem value="zh-CN">中文</SegmentedItem>
+            <SegmentedItem value="en-US">English</SegmentedItem>
           </SegmentedControl>
         </div>
       </div>
@@ -216,6 +269,7 @@ function MainPage() {
 const router = createMemoryRouter([
   {
     path: '/',
+    loader: getConfiguration,
     element: <MainPage />,
   },
 ]);

@@ -29,6 +29,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      react-reconciler:
+        specifier: ^0.31.0
+        version: 0.31.0(react@19.0.0)
       react-router:
         specifier: ^7.3.0
         version: 7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -51,6 +54,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.4
         version: 19.0.4(@types/react@19.0.11)
+      '@types/react-reconciler':
+        specifier: ^0.31.0
+        version: 0.31.0(@types/react@19.0.11)
       '@vanilla-extract/esbuild-plugin':
         specifier: ^2.3.15
         version: 2.3.15(esbuild@0.25.1)
@@ -372,6 +378,11 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
+  '@types/react-reconciler@0.31.0':
+    resolution: {integrity: sha512-wa1KtV3SHKnWeLHfZFg/7nrPSe/Ejdn+qbanNX4V6i9I7C3ECKPfBnC1KM3ef58KFWEohLmTvoTH5XuEIKGX2g==}
+    peerDependencies:
+      '@types/react': '*'
+
   '@types/react@19.0.11':
     resolution: {integrity: sha512-vrdxRZfo9ALXth6yPfV16PYTLZwsUWhVjjC+DkfE5t1suNSbBrWC9YqSuuxJZ8Ps6z1o2ycRpIqzZJIgklq4Tw==}
 
@@ -565,6 +576,12 @@ packages:
 
   react-dom@19.0.0:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
+    peerDependencies:
+      react: ^19.0.0
+
+  react-reconciler@0.31.0:
+    resolution: {integrity: sha512-7Ob7Z+URmesIsIVRjnLoDGwBEG/tVitidU0nMsqX/eeJaLY89RISO/10ERe0MqmzuKUUB1rmY+h1itMbUHg9BQ==}
+    engines: {node: '>=0.10.0'}
     peerDependencies:
       react: ^19.0.0
 
@@ -864,6 +881,10 @@ snapshots:
     dependencies:
       '@types/react': 19.0.11
 
+  '@types/react-reconciler@0.31.0(@types/react@19.0.11)':
+    dependencies:
+      '@types/react': 19.0.11
+
   '@types/react@19.0.11':
     dependencies:
       csstype: 3.1.3
@@ -1068,6 +1089,11 @@ snapshots:
       pathe: 2.0.3
 
   react-dom@19.0.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      scheduler: 0.25.0
+
+  react-reconciler@0.31.0(react@19.0.0):
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0

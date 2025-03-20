@@ -1,93 +1,142 @@
 import { findFrameNode, outlineStroke, parsePathData, stringifySolidPaint, unionByFillStyle } from '^/base/figma';
 import { normalizeWindingRule, stringifyPath, translatePath } from '^/base/path-data';
-import { PluginMessageFromUI, sendMessageToUI, sendPendingMessageToUI } from './message';
+import { openTunnel } from '^/base/rpc';
+import { Observable, Observer } from 'rxjs';
+import { ExportLog, ExportOptions, Language, MainProcessService, Presets } from './protocol';
 
 console.clear();
 
 // https://www.figma.com/plugin-docs/api/properties/figma-showui/
+
 figma.showUI(__html__, {
   width: 400,
   height: 720,
   themeColors: true,
 });
 
-figma.ui.on('message', async (pluginMessage: unknown): Promise<void> => {
-  console.log('[figma.ui.onmessage]', pluginMessage);
-  const { error, data: message } = PluginMessageFromUI.safeParse(pluginMessage);
-  if (error) {
-    console.error(error);
-    return;
-  }
-  if (message.type === 'export') {
-    if (message.data.sendToServer) {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    }
-    runExport();
-    return;
-  }
+// Create RPC tunnel, listen messages from ui.
 
-  if (message.type === 'request') {
-    if (message.method === 'select-source-node') {
-      const requestId = message.id;
+const tunnel = openTunnel({
+  encode: (message) => message,
+  decode: (encoded) => encoded,
+  listen() {
+    return new Observable((observer) => {
+      figma.ui.on('message', (pluginMessage) => {
+        observer.next(pluginMessage);
+      });
+    });
+  },
+  send(encoded) {
+    figma.ui.postMessage(encoded);
+  },
+});
+
+// Provide methods to resolve RPC call from ui.
+
+tunnel.serve<MainProcessService>({
+  async test() {
+    return 1234;
+  },
+  async getLanguage() {
+    const storageValue = await figma.clientStorage.getAsync('language');
+    const parseResult = Language.safeParse(storageValue);
+    return parseResult.success ? parseResult.data : 'en-US';
+  },
+  async setLanguage(value) {
+    await figma.clientStorage.setAsync('language', value);
+  },
+  async getPresets() {
+    const storageValue = await figma.clientStorage.getAsync('presets');
+    const parseResult = Presets.safeParse(storageValue);
+    return parseResult.success ? parseResult.data : {
+      selection: 0,
+      options: [{
+        id: 0,
+        name: 'Temporary',
+        sourceNode: undefined,
+        exportOptions: undefined,
+      }],
+    };
+  },
+  async createPreset(data) {
+    const presets = await this.getPresets();
+    presets.options.push(data);
+    await figma.clientStorage.setAsync('presets', presets);
+    return presets;
+  },
+  async switchPreset(id) {
+    const presets = await this.getPresets();
+    presets.selection = id;
+    await figma.clientStorage.setAsync('presets', presets);
+    return presets;
+  },
+  async updatePreset(data) {
+    const presets = await this.getPresets();
+    const index = presets.options.findIndex((it) => it.id === data.id);
+    if (index !== -1) {
+      presets.options.splice(index, 1, data);
+    }
+    await figma.clientStorage.setAsync('presets', presets);
+    return presets;
+  },
+  async deletePreset(id) {
+    const presets = await this.getPresets();
+    const index = presets.options.findIndex((it) => it.id === id);
+    if (index !== -1) {
+      presets.options.splice(index, 1);
+    }
+    await figma.clientStorage.setAsync('presets', presets);
+    return presets;
+  },
+  selectSourceNode() {
+    return new Promise((resolve, reject) => {
+      figma.ui.hide();
       figma.on('selectionchange', () => {
         if (figma.currentPage.selection.length === 1) {
           const node = figma.currentPage.selection[0];
           if (node.type === 'FRAME') {
-            sendMessageToUI({
-              id: requestId,
-              type: 'response',
-              method: 'select-source-node',
-              success: true,
-              value: {
-                nodeId: node.id,
-                nodeName: node.name,
-              },
+            figma.ui.show();
+            resolve({
+              id: node.id,
+              name: node.name,
             });
             return;
           }
-          sendMessageToUI({
-            id: requestId,
-            type: 'response',
-            method: 'select-source-node',
-            success: false,
-            error: 'The node you select is not a Frame node!',
-          });
+          figma.ui.show();
+          reject('The node you select is not a Frame node!');
           return;
         }
-        sendMessageToUI({
-          id: requestId,
-          type: 'response',
-          method: 'select-source-node',
-          success: false,
-          error: 'The node you select is not a single node!',
-        });
+        figma.ui.show();
+        reject('The node you select is not a single node!');
       });
       return;
-    }
-    return;
-  }
-
-  console.log(`Unkndown message type "${message.type}", close plugin.`);
-  // Make sure to close the plugin when you're done. Otherwise the plugin will
-  // keep running, which shows the cancel button at the bottom of the screen.
-  figma.closePlugin();
+    });
+  },
+  export(options) {
+    return new Observable((observer) => {
+      runExport(options, observer).catch((error) => {
+        observer.error(error);
+      });
+    });
+  },
 });
 
-async function runExport(
-  sourceNodeName = 'Icon',
-): Promise<void> {
+async function runExport(options: ExportOptions, observer: Observer<ExportLog>): Promise<void> {
 
   // 1. Find source node by name or id.
 
+  const sourceNodeName = 'Icon';
   const sourceNode = findFrameNode(sourceNodeName);
 
   if (!sourceNode) {
-    sendMessageToUI({ type: 'export-result', data: { state: 'rejected', message: `Cannot find Frame type node by name "${sourceNodeName}"!` } });
+    observer.next({ level: 'error', message: `Cannot find Frame type node by name "${sourceNodeName}"!` });
+    observer.error('?');
     return;
   }
 
   if (!sourceNode.children.length) {
-    sendMessageToUI({ type: 'export-result', data: { state: 'rejected', message: `Source node "${sourceNodeName}" has no child!` } });
+    observer.next({ level: 'error', message: `Source node "${sourceNodeName}" has no child!` });
+    observer.error('?');
     return;
   }
 
@@ -140,12 +189,12 @@ async function runExport(
 
   for (const icon of sourceNode.children) {
     if (icon.type !== 'FRAME') {
-      sendPendingMessageToUI(`Warning: Node ${icon.name} is not a FrameNode but a ${icon.type}!`);
+      observer.next({ level: 'info', message: `Warning: Node ${icon.name} is not a FrameNode but a ${icon.type}!` });
       continue;
     }
 
     if (icon.children.length === 0) {
-      sendPendingMessageToUI(`Warning: FrameNode ${icon.name} has no child!`);
+      observer.next({ level: 'info', message: `Warning: FrameNode ${icon.name} has no child!` });
       continue;
     }
 
@@ -162,7 +211,7 @@ async function runExport(
 
       for (const element of clone.children) {
         if (element.type !== 'VECTOR') {
-          sendPendingMessageToUI(`Warning: ${clone.name}'s child ${element.name} is not a VectorNode but a ${element.type}!`);
+          observer.next({ level: 'info', message: `Warning: ${clone.name}'s child ${element.name} is not a VectorNode but a ${element.type}!` });
           element.remove();
           continue;
         }
@@ -204,16 +253,13 @@ async function runExport(
         const { x, y } = element;
         element.x = 0;
         element.y = 0;
-        element.vectorPaths = element.vectorPaths.filter((it) => {
-          if (it.windingRule === 'NONE') {
-            console.warn('NONE icon[ %s ] element[ %s ] %s', clone.name, element.name, 'Ignore open path:', it.data);
-            return false;
-          }
-          return true;
-        }).map((it) => {
-          let commands = [...parsePathData(it.data)];
-          if (it.windingRule === 'EVENODD') {
-            console.warn('EVENODD icon[ %s ] element[ %s ] %s', clone.name, element.name, 'Convert fill rule:', it.data);
+
+        // 3. Convert Even-odd rules to Non-zero rules, simplify <path> elements's attributes.
+
+        element.vectorPaths = element.vectorPaths.filter((path) => path.windingRule !== 'NONE').map((path) => {
+          let commands = [...parsePathData(path.data)];
+          if (path.windingRule === 'EVENODD') {
+            console.warn('EVENODD icon[ %s ] element[ %s ] %s', clone.name, element.name, 'Convert fill rule:', path.data);
             commands = normalizeWindingRule(commands);
           }
           commands = translatePath(commands, x, y);
@@ -243,13 +289,12 @@ async function runExport(
     }
   }
 
-  // 3. Convert Even-odd rules to Non-zero rules, simplify <path> elements's attributes.
-
   // 4. Create component.
 
   // 5. Send exported metadata to http server.
 
   // 6. Clean up.
 
-  sendMessageToUI({ type: 'export-result', data: { state: 'fulfilled', message: 'ojbk!' } });
+  observer.next({ level: 'info', message: 'ojbk!' });
+  observer.complete();
 }
