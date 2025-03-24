@@ -26,18 +26,16 @@ export const SelectedNode = z.object({
 export type SelectedNode = z.infer<typeof SelectedNode>;
 
 export const ExportOptions = z.object({
-  createComponent: z.object({
-    node: z.object({
-      id: z.string().optional(),
-      name: z.string(),
-    }),
-  }).optional(),
-  sendToServer: z.object({
-    httpEndpoint: z.string(),
-  }).optional(),
-  saveJson: z.object({
-    typesciptDelcaration: z.boolean(),
-  }).optional(),
+  createFigmaComponent: z.boolean(),
+  figmaComponentNodeId: z.string(),
+  figmaComponentNodeName: z.string(),
+  sendToHttpServer: z.boolean(),
+  httpServerEndpoint: z.string(),
+  generateJsonFile: z.boolean(),
+  generateJsonDeclarationFile: z.boolean(),
+  generateIconDefinationsFile: z.boolean(),
+  generateReactElementsFile: z.boolean(),
+  generateReactComponentsFile: z.boolean(),
 });
 
 export type ExportOptions = z.infer<typeof ExportOptions>;

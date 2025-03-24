@@ -122,7 +122,7 @@ tunnel.serve<MainProcessService>({
 });
 
 async function runExport(options: ExportOptions, observer: Observer<ExportLog>): Promise<void> {
-
+  console.log(options);
   // 1. Find source node by name or id.
 
   const sourceNodeName = 'Icon';
@@ -175,7 +175,11 @@ async function runExport(options: ExportOptions, observer: Observer<ExportLog>):
   type Path = {
     d: string;
     opacity: number;
-    fill: string | { var: string };
+    fill: {
+      hex: string;
+    } | {
+      var: string;
+    };
   };
 
   type Icon = {
@@ -224,7 +228,7 @@ async function runExport(options: ExportOptions, observer: Observer<ExportLog>):
 
         const opacity = clone.opacity * element.opacity;
 
-        let fill: string | { var: string };
+        let fill: { hex: string } | { var: string };
         const fills = element.fills;
         if (typeof fills === 'symbol') {
           console.warn(`%s's child %s's fills not paints!`, clone.name, element.name, fills);
@@ -239,10 +243,14 @@ async function runExport(options: ExportOptions, observer: Observer<ExportLog>):
               element.remove();
               continue;
             }
-            fill = stringifySolidPaint(paint, 1);
+
+            fill = {
+              hex: stringifySolidPaint(paint, 1),
+            };
+
             if (paint.boundVariables?.color) {
               const localVariable = allLocalVariables[paint.boundVariables.color.id];
-              exportedVars[localVariable.name] = fill;
+              exportedVars[localVariable.name] = fill.hex;
               fill = {
                 var: localVariable.name,
               };
@@ -292,6 +300,48 @@ async function runExport(options: ExportOptions, observer: Observer<ExportLog>):
   // 4. Create component.
 
   // 5. Send exported metadata to http server.
+  if (options.sendToHttpServer && options.httpServerEndpoint) {
+    console.log('Sending exported data to', options.httpServerEndpoint);
+    try {
+      // Figma plugin runtime dont have global URL object.
+      const [path, search = '', hash] = options.httpServerEndpoint.split(/[\?\#]/);
+      const searchParams = search.split('&');
+
+      if (options.generateJsonFile) {
+        searchParams.push('generateJsonFile');
+      }
+      if (options.generateJsonDeclarationFile) {
+        searchParams.push('generateJsonDeclarationFile');
+      }
+      if (options.generateIconDefinationsFile) {
+        searchParams.push('generateIconDefinationsFile');
+      }
+      if (options.generateReactElementsFile) {
+        searchParams.push('generateReactElementsFile');
+      }
+      if (options.generateReactComponentsFile) {
+        searchParams.push('generateReactComponentsFile');
+      }
+
+      const endpoint = [[path, searchParams.filter(Boolean).join('&')].filter(Boolean).join('?'), hash].filter(Boolean).join('#');
+
+      observer.next({ level: 'info', message: `Sending exported data to ${endpoint} ...` });
+      console.log('Sending exported data to', endpoint);
+
+      await fetch(endpoint, {
+        method: 'POST',
+        body: JSON.stringify({
+          vars: exportedVars,
+          icons: Object.fromEntries(Object.entries(exportedIcons).map(([name, icon]) => [name, [icon.width, icon.height, icon.paths.map((path) => [path.d, path.opacity, path.fill])]])),
+        }),
+      });
+      observer.next({ level: 'info', message: `Sending ok.` });
+      console.log(`Sending ok.`);
+    } catch (error) {
+      observer.next({ level: 'info', message: `Sending failed!` });
+      console.error(error);
+    }
+  }
 
   // 6. Clean up.
 

@@ -50,8 +50,16 @@ const I18N_LABELS = {
     'zh-CN': '生成 JSON 文件',
   },
   genJsonDesc: {
-    'en-US': 'Save as a .json and .d.json.ts file.',
-    'zh-CN': '生成 .json 和 .d.json.ts 文件。',
+    'en-US': 'Generates a .json file.',
+    'zh-CN': '生成 .json 文件。',
+  },
+  genJsonDeclaration: {
+    'en-US': 'JSON TypeScript Declaration',
+    'zh-CN': '为 JSON 生成 TypeScript 声明',
+  },
+  genJsonDeclarationDesc: {
+    'en-US': 'Generates a .d.json.ts file.',
+    'zh-CN': '生成 .d.json.ts 文件。',
   },
   genTypescript: {
     'en-US': 'Save as typescript',
@@ -61,11 +69,19 @@ const I18N_LABELS = {
     'en-US': 'Save as a .ts file, which exports all icons as IconDefination object.',
     'zh-CN': '生成 .ts 文件，将所有图标作为 IconDefination 对象导出。',
   },
-  genReact: {
+  genReactElement: {
+    'en-US': 'Save as react elements',
+    'zh-CN': '生成 React 元素',
+  },
+  genReactElementDesc: {
+    'en-US': 'Save as a .tsx file, which exports all icons as React component function.',
+    'zh-CN': '生成 .tsx 文件，将所有图标作为 React 元素函数导出。',
+  },
+  genReactComponent: {
     'en-US': 'Save as react components',
     'zh-CN': '生成 React 组件',
   },
-  genReactDesc: {
+  genReactComponentDesc: {
     'en-US': 'Save as a .tsx file, which exports all icons as React component function.',
     'zh-CN': '生成 .tsx 文件，将所有图标作为 React 组件函数导出。',
   },

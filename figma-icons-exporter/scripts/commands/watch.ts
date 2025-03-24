@@ -1,62 +1,59 @@
 import { vanillaExtractPlugin } from '@vanilla-extract/esbuild-plugin';
-import * as esbuild from 'esbuild';
-import { createReadStream, createWriteStream } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { context } from 'esbuild';
 import { resolve } from 'node:path';
+import { resultLoggerPlugin } from '../esbuild/common';
+import { contextsFromManifest } from '../esbuild/figma';
+import { contextFromHtml } from '../esbuild/html';
 
-esbuild.context({
-  entryPoints: [
-    resolve('src/plugin/main.ts'),
-    resolve('src/plugin/ui.tsx'),
-    resolve('src/server/ui.tsx'),
-  ],
-  outdir: 'build',
-  target: 'es6',
-  sourcemap: 'inline',
-  format: 'iife',
+const resultLogger = resultLoggerPlugin();
+const outbase = resolve('src');
+const outdir = resolve('build');
+
+const serverMainContext = context({
+  outbase,
+  outdir,
+  platform: 'node',
+  target: 'node18',
+  format: 'cjs',
+  sourcemap: 'linked',
   bundle: true,
   minify: true,
   plugins: [
-    vanillaExtractPlugin({}),
-    {
-      name: 'figma-ui',
-      setup(build) {
-        let startAt = 0;
-        build.onStart(() => {
-          startAt = performance.now();
-        });
-        build.onEnd(async (result) => {
-          const endAt = performance.now();
-          console.log('[build end] %s %sms', new Date().toLocaleString(), (endAt - startAt).toFixed(0));
-          result.errors.forEach((message) => console.error(message.text));
-          result.warnings.forEach((message) => console.warn(message.text));
-          const inlinStyle = await readFile(resolve('build/plugin/ui.css'), 'utf-8');
-          const inlineScript = await readFile(resolve('build/plugin/ui.js'), 'utf-8');
-          const templateHtml = await readFile(resolve('src/plugin/ui.html'), 'utf-8');
-
-          writeFile(resolve('build/plugin/ui.html'), [
-            '<style>',
-            inlinStyle,
-            '</style>',
-            templateHtml,
-            '<script>',
-            inlineScript,
-            '</script>',
-          ].join('\n'));
-
-          createReadStream(
-            resolve('src/server/ui.html'),
-          ).pipe(
-            createWriteStream(
-              resolve('build/server/ui.html'),
-            ),
-          );
-        });
-      },
-    },
+    resultLogger,
   ],
-}).then((context) => {
-  return context.watch();
+  entryPoints: [
+    resolve('src/server/main.ts'),
+  ],
+});
+
+const serverUiContext = contextFromHtml([resolve('src/server/ui.html')], {
+  outbase,
+  outdir,
+  sourcemap: 'inline',
+  minify: true,
+  plugins: [
+    vanillaExtractPlugin({}),
+    resultLogger,
+  ],
+});
+
+contextsFromManifest(resolve('src/plugin/manifest.json'), {
+  outbase,
+  outdir,
+  sourcemap: 'inline',
+  minify: true,
+  plugins: [
+    vanillaExtractPlugin({}),
+    resultLogger,
+  ],
+}).then(async (contexts) => {
+  return ([
+    ...contexts,
+    await serverMainContext,
+    await serverUiContext,
+  ].map((context) => {
+    return context.watch();
+  }));
 }).then(() => {
   console.log('watching');
 });

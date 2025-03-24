@@ -1,8 +1,8 @@
+import { Icon as SVG } from '^/exports/zod';
 import { createElement, Key, SVGAttributes } from 'react';
-import { ExportData } from './common';
 
-export type IconProps<K extends string = string> = {
-  map: ExportData.Icons<K>;
+export type IconProps<K extends string> = {
+  map: Record<K, SVG>;
   name: K;
   default?: string;
 };
@@ -11,7 +11,7 @@ export function Icon<K extends string>(props: IconProps<K>) {
   const [width, height, paths] = props.map[props.name];
 
   const viewBox = `0 0 ${width} ${height}`;
-  
+
   const children = paths.map(([d, opacity, fill], i) => {
     const init: SVGAttributes<SVGPathElement> & { key: Key } = { key: i };
     init.d = d;
@@ -20,8 +20,8 @@ export function Icon<K extends string>(props: IconProps<K>) {
     }
     if (typeof fill === 'undefined') {
       init.fill = 'currentcolor';
-    } else if (typeof fill === 'string') {
-      init.fill = fill;
+    } else if ('hex' in fill) {
+      init.fill = fill.hex;
     } else {
       if (props.default && fill.var === props.default) {
         init.fill = 'currentcolor';

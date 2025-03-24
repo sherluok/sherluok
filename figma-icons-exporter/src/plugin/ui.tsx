@@ -5,7 +5,7 @@ import { createMemoryRouter, RouterProvider, useLoaderData } from 'react-router'
 import { Observable } from 'rxjs';
 import { createLabelsGetter } from './i18n';
 import { ExportOptions, Language, MainProcessService, RenderProcessService } from './protocol';
-import { Button, Checkbox, Radio, SegmentedControl, SegmentedItem, Select, TextArea, TextInput } from './styled';
+import { Button, Checkbox, SegmentedControl, SegmentedItem, Select, TextArea, TextInput } from './styled';
 import * as s from './ui.css';
 
 const tunnel = openTunnel({
@@ -81,14 +81,16 @@ export function MainPage() {
   const [logMessages, setLogMessages] = useState('');
 
   const iconsSourceNodeName = useInputProps(currentPreset.sourceNode?.name ?? '');
-  const createFigmaComponent = useCheckboxProps(!!currentPreset.exportOptions?.createComponent);
-  const iconsCreateComponentNodeName = useInputProps(currentPreset.exportOptions?.createComponent?.node.name ?? '');
-  const sendToServer = useCheckboxProps(!!currentPreset.exportOptions?.sendToServer);
-  const httpEnpoint = useInputProps(currentPreset.exportOptions?.sendToServer?.httpEndpoint ?? 'http://localhost:3974/api/figma-icons-exporter');
-  const saveAsJson = useCheckboxProps(!!currentPreset.exportOptions?.saveJson);
-  const jsonTypescripDeclaration = useCheckboxProps(!!currentPreset.exportOptions?.saveJson?.typesciptDelcaration);
-  const saveAsTypeScript = useCheckboxProps(false);
-  const saveAsReactComponent = useCheckboxProps(false);
+  const createFigmaComponent = useCheckboxProps(!!currentPreset.exportOptions?.createFigmaComponent);
+  const figmaComponentNodeId = useInputProps(currentPreset.exportOptions?.figmaComponentNodeId ?? '');
+  const figmaComponentNodeName = useInputProps(currentPreset.exportOptions?.figmaComponentNodeName ?? '');
+  const sendToHttpServer = useCheckboxProps(!!currentPreset.exportOptions?.sendToHttpServer);
+  const httpServerEnpoint = useInputProps(currentPreset.exportOptions?.httpServerEndpoint ?? 'http://localhost:3974/api/figma-icons-exporter');
+  const generateJsonFile = useCheckboxProps(!!currentPreset.exportOptions?.generateJsonFile);
+  const generateJsonDeclarationFile = useCheckboxProps(!!currentPreset.exportOptions?.generateJsonDeclarationFile);
+  const generateIconDefinationsFile = useCheckboxProps(false);
+  const generateReactElementsFile = useCheckboxProps(false);
+  const generateReactComponentsFile = useCheckboxProps(false);
 
   const [isPickingSourceNode, setPickingSourceNode] = useState(false);
   const onPickSourceNode = () => {
@@ -111,17 +113,16 @@ export function MainPage() {
     setExporting(true);
     setLogMessages('');
     const exportOptions: ExportOptions = {
-      createComponent: createFigmaComponent.checked && iconsCreateComponentNodeName.value ? {
-        node: {
-          name: iconsCreateComponentNodeName.value,
-        },
-      } : undefined,
-      sendToServer: sendToServer.checked && httpEnpoint.value ? {
-        httpEndpoint: httpEnpoint.value,
-      } : undefined,
-      saveJson: saveAsJson.checked ? {
-        typesciptDelcaration: jsonTypescripDeclaration.checked,
-      } : undefined,
+      createFigmaComponent: createFigmaComponent.checked,
+      figmaComponentNodeId: figmaComponentNodeId.value,
+      figmaComponentNodeName: figmaComponentNodeName.value,
+      sendToHttpServer: sendToHttpServer.checked,
+      httpServerEndpoint: httpServerEnpoint.value,
+      generateJsonFile: generateJsonFile.checked,
+      generateJsonDeclarationFile: generateJsonDeclarationFile.checked,
+      generateIconDefinationsFile: generateIconDefinationsFile.checked,
+      generateReactElementsFile: generateReactElementsFile.checked,
+      generateReactComponentsFile: generateReactComponentsFile.checked,
     };
     const currentPreset = config.presets.options.find((it) => it.id === config.presets.selection);
     if (currentPreset) {
@@ -206,7 +207,7 @@ export function MainPage() {
           {createFigmaComponent.checked && (
             <div className={s.targets.content}>
               <div className={s.nodeNamePickerCombo}>
-                <TextInput {...iconsCreateComponentNodeName} disabled={!createFigmaComponent.checked} placeholder="Frame node name" />
+                <TextInput {...figmaComponentNodeName} disabled={!createFigmaComponent.checked} placeholder="Frame node name" />
                 <Button disabled={!createFigmaComponent.checked || isPickingOutputNode} onClick={onPickOutputNode} pending={isPickingOutputNode}>
                   <div className={s.icon.container}>
                     <svg className={s.icon.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
@@ -219,38 +220,30 @@ export function MainPage() {
             </div>
           )}
 
-          <Checkbox className={s.targets.checkbox} {...sendToServer}>{i18n.sendToHttpServer}</Checkbox>
+          <Checkbox className={s.targets.checkbox} {...sendToHttpServer}>{i18n.sendToHttpServer}</Checkbox>
           <div className={s.targets.desciption}>{i18n.sendToHttpServerDesc}</div>
-          {sendToServer.checked && (
+          {sendToHttpServer.checked && (
             <div className={s.targets.content}>
-              <TextArea disabled={!sendToServer.checked} {...httpEnpoint} style={{ width: '100%' }} rows={4} placeholder="The http endpoint address" />
+              <TextArea disabled={!sendToHttpServer.checked} {...httpServerEnpoint} style={{ width: '100%' }} rows={4} placeholder="The http endpoint address" />
             </div>
           )}
 
-          <Checkbox className={s.targets.checkbox} {...saveAsJson}>{i18n.genJson}</Checkbox>
+          <Checkbox className={s.targets.checkbox} {...generateJsonFile}>{i18n.genJson}</Checkbox>
           <div className={s.targets.desciption}>{i18n.genJsonDesc}</div>
-          {saveAsJson.checked && (
+          {generateJsonFile.checked && (
             <div className={s.targets.content}>
-              <Checkbox {...jsonTypescripDeclaration}>Include typescript declaration for json</Checkbox>
+              <Checkbox {...generateJsonDeclarationFile}>{i18n.genJsonDeclaration}</Checkbox>
             </div>
           )}
 
-          <Checkbox className={s.targets.checkbox} {...saveAsTypeScript}>{i18n.genTypescript}</Checkbox>
+          <Checkbox className={s.targets.checkbox} {...generateIconDefinationsFile}>{i18n.genTypescript}</Checkbox>
           <div className={s.targets.desciption}>{i18n.genTypescriptDesc}</div>
-          {saveAsTypeScript.checked && (
-            <div className={s.targets.content}>
-              <Checkbox>As IconDefination</Checkbox>
-            </div>
-          )}
 
-          <Checkbox className={s.targets.checkbox} {...saveAsReactComponent}>{i18n.genReact}</Checkbox>
-          <div className={s.targets.desciption}>{i18n.genReactDesc}</div>
-          {saveAsReactComponent.checked && (
-            <div className={s.targets.content}>
-              <Radio>As ReactComponent function</Radio>
-              <Radio>As ReactElement object</Radio>
-            </div>
-          )}
+          <Checkbox className={s.targets.checkbox} {...generateReactElementsFile}>{i18n.genReactElement}</Checkbox>
+          <div className={s.targets.desciption}>{i18n.genReactElementDesc}</div>
+
+          <Checkbox className={s.targets.checkbox} {...generateReactComponentsFile}>{i18n.genReactComponent}</Checkbox>
+          <div className={s.targets.desciption}>{i18n.genReactComponentDesc}</div>
         </div>
 
       </div>

@@ -1,13 +1,12 @@
-import { ExportData } from '^/exports/common';
-import { Icon } from '^/exports/react';
-import { validateExportData } from '^/exports/zod';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Icon } from '../exports/react';
+import { ExportedData, Icons, Vars } from '../exports/zod';
 import './ui.css';
 
 function MainPage() {
-  const [vars, setVars] = useState<ExportData['vars']>();
-  const [icons, setIcons] = useState<ExportData['icons']>();
+  const [vars, setVars] = useState<Vars>();
+  const [icons, setIcons] = useState<Icons>();
 
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -21,11 +20,9 @@ function MainPage() {
 
   useEffect(() => {
     const { signal, abort } = new AbortController();
-    const eventSource = new EventSource('/api/icons');
+    const eventSource = new EventSource('/api/exported-data');
     eventSource.addEventListener('message', (e) => {
-      const data = JSON.parse(e.data);
-      validateExportData(data);
-
+      const data = ExportedData.parse(JSON.parse(e.data));
       const vars = Object.fromEntries(Object.entries(data.vars).map(([name, fallback]) => {
         const value = window.localStorage.getItem(name) ?? fallback;
         return [name, value];
