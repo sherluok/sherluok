@@ -1,4 +1,5 @@
 packages:
+  - ./command-line-tools
   - ./figma-icons-exporter
   - ./sherluok.com
   - ./ui-components
