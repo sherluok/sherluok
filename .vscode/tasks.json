@@ -1,0 +1,75 @@
+// https://github.com/connor4312/esbuild-problem-matchers/blob/main/package.json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "projects/vscode:pre-extension-host",
+      "dependsOn": [
+        "projects/vscode:watch-extension",
+        "projects/vscode:watch-webview",
+      ],
+    },
+    {
+      "label": "projects/vscode:watch-extension",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/projects/vscode",
+      },
+      "command": "powershell",
+      "args": [
+        "./scripts/watch-extension.ps1",
+      ],
+      "isBackground": true,
+      "problemMatcher": "$esbuild-watch",
+    },
+    {
+      "label": "projects/vscode:watch-webview",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/projects/vscode",
+      },
+      "command": "powershell",
+      "args": [
+        "./scripts/watch-webview.ps1",
+      ],
+      "isBackground": true,
+      "problemMatcher": "$esbuild-watch",
+    },
+    {
+      "label": "sherluok.com/clouflare-worker:dev",
+      "options": {
+        "cwd": "${workspaceFolder}/sherluok.com",
+      },
+      "command": "pnpm",
+      "args": [
+        "exec",
+        "wrangler",
+        "dev",
+      ],
+      "isBackground": true,
+      "problemMatcher": "$wrangler-dev",
+    },
+    {
+      "label": "shell:build",
+      "options": {
+        "cwd": "${workspaceFolder}/projects/shell",
+      },
+      "command": "powershell",
+      "args": [
+        "./build.ps1",
+      ],
+      "problemMatcher": "$esbuild",
+    },
+    {
+      "label": "kernel:build",
+      "options": {
+        "cwd": "${workspaceFolder}/projects/kernel",
+      },
+      "command": "powershell",
+      "args": [
+        "./build.ps1",
+      ],
+      "problemMatcher": "$esbuild",
+    },
+  ]
+}

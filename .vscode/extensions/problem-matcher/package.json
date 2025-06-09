@@ -1,0 +1,95 @@
+{
+  "name": "problem-matcher",
+  "displayName": "Problem Matchers",
+  "description": "Problem matchers for esbuild, wrangler...",
+  "publisher": "sherluok",
+  "version": "0.1.1",
+  "engines": {
+    "vscode": "^1.100.2"
+  },
+  "contributes": {
+    "problemMatchers": [
+      {
+        "name": "esbuild",
+        "label": "esbuild problem matcher",
+        "severity": "error",
+        "applyTo": "closedDocuments",
+        "source": "esbuild",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^X \\[([A-Z]+)\\] (.+)",
+            "severity": 1,
+            "message": 2
+          },
+          {
+            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ]
+      },
+      {
+        "name": "esbuild-watch",
+        "label": "esbuild --watch problem matcher",
+        "severity": "error",
+        "applyTo": "closedDocuments",
+        "source": "esbuild",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^X \\[([A-Z]+)\\] (.+)",
+            "severity": 1,
+            "message": 2
+          },
+          {
+            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "\\[watch\\] build started"
+          },
+          "endsPattern": {
+            "regexp": "\\[watch\\] build finished"
+          }
+        }
+      },
+      {
+        "name": "wrangler-dev",
+        "label": "wrangler dev problem matcher",
+        "severity": "error",
+        "applyTo": "closedDocuments",
+        "source": "wrangler",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^X \\[([A-Z]+)\\] (.+)",
+            "severity": 1,
+            "message": 2
+          },
+          {
+            "regexp": "^(?:\\t| {6})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "Reloading local server"
+          },
+          "endsPattern": {
+            "regexp": "Local server ready"
+          }
+        }
+      }
+    ]
+  }
+}

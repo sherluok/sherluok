@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Extension Tests",
+      "type": "extensionHost",
+      "request": "launch",
+      "preLaunchTask": "projects/vscode:pre-extension-host",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        // "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}/projects/vscode",
+        "${workspaceFolder}/local",
+      ],
+      "outFiles": ["${workspaceFolder}/projects/vscode/out/**/*.js"],
+			"sourceMaps": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**",
+        "C:/Users/host/AppData/Local/Programs/Microsoft VS Code/resources/app/**/*.js",
+      ],
+    },
+  ],
+}

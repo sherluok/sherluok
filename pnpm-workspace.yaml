@@ -1,4 +1,7 @@
 packages:
+  - ./.github/actions/*
+  - ./.vscode/extensions/*
+  - ./packages/*
   - ./command-line-tools
   - ./figma-icons-exporter
   - ./sherluok.com
