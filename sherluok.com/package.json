@@ -11,8 +11,10 @@
     "web:dev": "node --import tsx ./scripts/watch-web.ts"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^3.1.0",
     "@sherluok/webpack": "workspace:*",
     "@types/node": "^22.15.30",
+    "remark-mdx-toc": "^0.3.1",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "wrangler": "^4.19.1"

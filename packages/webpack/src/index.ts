@@ -33,6 +33,9 @@ type FeaturedConfig = {
   defines?: Record<string, any>;
   /** Entrypoints */
   entries?: Record<string, string>;
+  /** Original Webpack Config */
+  rules?: RuleSetRule[];
+  plugins?: WebpackPluginInstance[];
 };
 
 export class FeaturedWebpackConfig {
@@ -56,6 +59,14 @@ export class FeaturedWebpackConfig {
           ...a.entries,
           ...b.entries,
         },
+        rules: [
+          ...a.rules ?? [],
+          ...b.rules ?? [],
+        ],
+        plugins: [
+          ...a.plugins ?? [],
+          ...b.plugins ?? [],
+        ],
       });
     });
   }
@@ -117,6 +128,7 @@ export class FeaturedWebpackConfig {
           ...generateAssetRules(commonOptions),
           ...generateScriptRules(commonOptions),
           ...generateStyleRules(commonOptions),
+          ...this.init.rules ?? [],
         ],
       },
       plugins: [
@@ -131,6 +143,7 @@ export class FeaturedWebpackConfig {
         // })),
         // new HtmlEntryPlugin(Object.fromEntries(Object.entries(this.init.entries ?? {}).map(([name, { htmlTemplate }]) => [name, htmlTemplate]))),
         new HtmlEntryPlugin(this.init.entries ?? {}),
+        ...this.init.plugins ?? [],
       ],
       optimization: {
         // moduleIds: 'deterministic',
@@ -256,7 +269,7 @@ function* generateAssetRules(options: CommonGeneratorOptions): Generator<RuleSet
     // resourceQuery: /(^\?|\&)resource(\&|$)/,
     type: 'asset/resource',
     resourceQuery(value) {
-      return new URLSearchParams(value).has('resource');
+      return new URLSearchParams(value).get('asset') === 'resource';
     },
   };
 
@@ -264,7 +277,7 @@ function* generateAssetRules(options: CommonGeneratorOptions): Generator<RuleSet
     // resourceQuery: /(^\?|\&)inline(\&|$)/,
     type: 'asset/inline',
     resourceQuery(value) {
-      return new URLSearchParams(value).has('inline');
+      return new URLSearchParams(value).get('asset') === 'inline';
     },
   };
 
@@ -272,7 +285,7 @@ function* generateAssetRules(options: CommonGeneratorOptions): Generator<RuleSet
     // resourceQuery: /(^\?|\&)source(\&|$)/,
     type: 'asset/source',
     resourceQuery(value) {
-      return new URLSearchParams(value).has('source');
+      return new URLSearchParams(value).get('asset') === 'source';
     },
   };
 
@@ -280,7 +293,7 @@ function* generateAssetRules(options: CommonGeneratorOptions): Generator<RuleSet
     // resourceQuery: /(^\?|\&)auto(\&|$)/,
     type: 'asset',
     resourceQuery(value) {
-      return new URLSearchParams(value).has('asset');
+      return new URLSearchParams(value).get('asset') === 'auto';
     },
   };
 

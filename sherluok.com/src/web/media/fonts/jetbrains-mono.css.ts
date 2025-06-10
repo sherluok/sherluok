@@ -15,8 +15,8 @@
 // }
 
 import { globalFontFace } from '@vanilla-extract/css';
-import { default as italic } from './jetbrains-mono-italic.ttf?resource';
-import { default as normal } from './jetbrains-mono-normal.ttf?resource';
+import { default as italic } from './jetbrains-mono-italic.ttf?asset=resource';
+import { default as normal } from './jetbrains-mono-normal.ttf?asset=resource';
 
 export const JetBrainsMono = 'JetBrains Mono';
 

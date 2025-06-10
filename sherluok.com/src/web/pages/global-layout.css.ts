@@ -95,6 +95,7 @@ export const globalLayout = {
     display: 'flex',
     alignItems: 'center',
     gap: 20,
+    paddingInline: 32,
   }),
   externalLinkItem: style({
     fontSize: 20,

@@ -15,8 +15,8 @@
 // }
 
 import { globalFontFace } from '@vanilla-extract/css';
-import { default as italic } from './inter-italic.woff2?resource';
-import { default as normal } from './inter-normal.woff2?resource';
+import { default as italic } from './inter-italic.woff2?asset=resource';
+import { default as normal } from './inter-normal.woff2?asset=resource';
 
 export const Inter = 'Inter';
 

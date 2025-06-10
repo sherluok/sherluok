@@ -19,7 +19,10 @@ module.exports = async function (this: LoaderContext<LoaderOptions>, content: st
             // https://webpack.js.org/api/loaders/#thisimportmodule
             const [path, query] = icon.src.split('?');
             const searchParams = new URLSearchParams(query);
-            searchParams.set('resource', 'true');
+            // Add ?asset=auto to the import path if original import path has no 'asset' search params.
+            if (!searchParams.has('asset')) {
+              searchParams.set('asset', 'auto');
+            }
             const resource = [path, searchParams].join('?');
             // console.log('\x1b[31mmanifest-json-loader importing:\x1b[0m', resource);
             const fileURL = await this.importModule(resource);

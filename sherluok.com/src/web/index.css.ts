@@ -14,9 +14,9 @@ globalStyle('html', {
 });
 
 globalStyle('html', {
-  fontFamily: `${Inter}, system-ui`,
-  color: `light-dark(black, white)`,
+  fontFamily: `${Inter}, sans-serif, system-ui`,
   backgroundColor: `light-dark(white, oklch(20% 0% 48))`,
+  color: `light-dark(black, white)`,
 });
 
 globalStyle('body', {
@@ -24,5 +24,5 @@ globalStyle('body', {
 });
 
 globalStyle('code', {
-  fontFamily: `${JetBrainsMono}, ${Inter}, system-ui`,
+  fontFamily: `${JetBrainsMono}, monospace, system-ui`,
 });

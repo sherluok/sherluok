@@ -116,7 +116,9 @@ export class HtmlEntryPlugin implements WebpackPluginInstance {
                 // 特殊对待 rel="manifest"，在资源末尾添加 ?web-manifest 来使用内部 loader 进行进一步处理
                 hrefFileURL.searchParams.set('web-manifest', 'true');
               } else if (element.properties.rel.includes('icon')) {
-                hrefFileURL.searchParams.set('resource', 'true');
+                if (!hrefFileURL.searchParams.has('asset')) {
+                  hrefFileURL.searchParams.set('asset', 'auto');
+                }
               }
             }
             const hrefFileUri = hrefFileURL.toString();

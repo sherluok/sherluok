@@ -1,5 +1,6 @@
 import { FeaturedWebpackConfig } from '@sherluok/webpack';
 import { resolve } from 'node:path';
+import { remarkMdxToc } from 'remark-mdx-toc';
 
 const shared = new FeaturedWebpackConfig({
   devServer: {
@@ -11,6 +12,21 @@ const shared = new FeaturedWebpackConfig({
       ],
     },
   },
+  rules: [
+    {
+      test: /\.mdx?$/,
+      use: [
+        {
+          loader: require.resolve('@mdx-js/loader'),
+          options: {
+            remarkPlugins: [
+              remarkMdxToc,
+            ],
+          },
+        },
+      ],
+    },
+  ],
 });
 
 export default shared;
