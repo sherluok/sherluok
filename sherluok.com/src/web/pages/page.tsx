@@ -1,10 +1,11 @@
+import { GlobalMain } from '^/web/pages/global-layout';
 
 export function Component() {
   return (
-    <div>
+    <GlobalMain>
       <h1>Welcome!</h1>
       <p>https://sherluok.com</p>
       <code>pnpm dev</code>
-    </div>
+    </GlobalMain>
   );
 }

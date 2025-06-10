@@ -4,6 +4,7 @@ export function Component() {
   return (
     <GlobalMain>
       <strong>OKLCH Color Picker & Converter</strong>
+      <div>Powered by <a href="https://culorijs.org/">culori</a>.</div>
 
       <label>
         <div style={{ marginTop: 16 }}>Please input a valid CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"><code>&lt;color&gt;</code></a>:</div>

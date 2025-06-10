@@ -1,6 +1,7 @@
 import { faBilibili, faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faPoop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { cx } from '^/common/css';
 import { ReactNode } from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
 import { globalLayout } from './global-layout.css';
@@ -19,7 +20,6 @@ export function GlobalLayout(props: GlobalLayoutProps) {
           <NavLink className={globalLayout.title} to="/">SherLuoK</NavLink>
           <div className={globalLayout.menuList}>
             <NavLink className={globalLayout.menuItem} to="/posts">Posts</NavLink>
-            <NavLink className={globalLayout.menuItem} to="/open-source">Music</NavLink>
             <NavLink className={globalLayout.menuItem} to="/photography">Photography</NavLink>
             <NavLink className={globalLayout.menuItem} to="/tools">Tools</NavLink>
           </div>
@@ -45,12 +45,13 @@ export function GlobalLayout(props: GlobalLayoutProps) {
 }
 
 interface GlobalMainProps {
+  className?: string;
   children?: ReactNode;
 }
 
 export function GlobalMain(props: GlobalMainProps) {
   return (
-    <main className={globalLayout.main}>
+    <main className={cx(globalLayout.main, props.className)}>
       {props.children}
     </main>
   );

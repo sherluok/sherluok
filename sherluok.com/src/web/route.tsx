@@ -6,6 +6,10 @@ export const routeObjects: RouteObject[] = [
     element: <GlobalLayout />,
     children: [
       {
+        path: '*',
+        lazy: () => import('./pages/404/page'),
+      },
+      {
         path: '/',
         lazy: () => import('./pages/page'),
       },

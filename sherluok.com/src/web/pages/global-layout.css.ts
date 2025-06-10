@@ -23,12 +23,14 @@ export const globalLayout = {
   }),
   main: style({
     gridColumn: '2 / 3',
-    minHeight: '100dvh',
+    minHeight: 'calc(100dvh - 128px - 64px)',
   }),
   footer: style({
     gridColumn: '1 / -1',
     marginTop: 64,
     padding: 32,
+    background: 'light-dark(black, white)',
+    color: 'light-dark(white, black)',
   }),
   icon: style({
     fontSize: 16,
