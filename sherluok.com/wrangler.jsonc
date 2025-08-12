@@ -1,5 +1,5 @@
 {
-  "name": "sherluok-dot-com",
+  "name": "sherluok-com",
   "main": "src/cloudflare/worker.ts",
   "compatibility_date": "2025-06-09",
   "compatibility_flags": [
@@ -40,6 +40,14 @@
     {
       "bucket_name": "sherluok-storage",
       "binding": "storage"
+    }
+  ],
+  // https://developers.cloudflare.com/workers/wrangler/configuration/#email-bindings
+  // https://developers.cloudflare.com/email-routing/email-workers/local-development/
+  // https://developers.cloudflare.com/email-routing/setup/email-routing-addresses/
+  "send_email": [
+    {
+      "name": "EMAIL"
     }
   ]
 }

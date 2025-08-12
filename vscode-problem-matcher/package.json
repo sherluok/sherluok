@@ -11,12 +11,12 @@
     "watch": "esbuild src/vscode.ts src/execution.ts --bundle --outdir=out --sourcemap --platform=node --target=node20.18.1 --packages=external --watch"
   },
   "devDependencies": {
-    "@types/node": "^22.15.30",
-    "@types/vscode": "^1.100.0",
-    "devtools-protocol": "^0.0.1470888",
-    "esbuild": "^0.25.5",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "@types/node": "^24.2.1",
+    "@types/vscode": "^1.102.0",
+    "devtools-protocol": "^0.0.1498597",
+    "esbuild": "^0.25.8",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
   },
   "engines": {
     "vscode": "^1.96.2"

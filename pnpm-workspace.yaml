@@ -1,6 +1,7 @@
 packages:
   - ./.github/actions/*
   - ./.vscode/extensions/*
+  - ./integrations/*
   - ./packages/*
   - ./command-line-tools
   - ./figma-icons-exporter

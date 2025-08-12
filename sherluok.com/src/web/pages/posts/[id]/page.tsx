@@ -36,7 +36,7 @@ function * generateTocItemElements(items: TocItem[]): Generator<ReactElement> {
 }
 
 function toTocItemElements(items: TocItem[]): ReactElement[] {
-  return generateTocItemElements(Article.toc).map((element, key) => {
+  return generateTocItemElements(items).map((element, key) => {
     return cloneElement(element, { key });
   }).toArray();
 }

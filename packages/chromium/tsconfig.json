@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.bundler.json",
+  "include": [
+    "./scripts/**/*",
+    "./src/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+  ],
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "erasableSyntaxOnly": true,
+  },
+}

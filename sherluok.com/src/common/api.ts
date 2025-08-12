@@ -37,3 +37,10 @@ export const GetTokenResponse = z.union([
     tokenInfo: TokenInfo,
   }),
 ]);
+
+export type PostEmailRequest = z.infer<typeof PostEmailRequest>;
+
+export const PostEmailRequest = z.object({
+  subject: z.string(),
+  message: z.string(),
+});

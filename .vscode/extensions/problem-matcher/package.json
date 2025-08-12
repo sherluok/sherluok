@@ -1,9 +1,22 @@
 {
   "name": "problem-matcher",
+  "version": "0.1.0",
+  "publisher": "sherluok",
   "displayName": "Problem Matchers",
   "description": "Problem matchers for esbuild, wrangler...",
-  "publisher": "sherluok",
-  "version": "0.1.1",
+  "license": "MIT",
+  "icon": "./media/icon.png",
+  "scripts": {
+    "pkg": "vsce package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sherluok/sherluok"
+  },
+  "homepage": "https://github.com/sherluok/sherluok/.vscode/extensions/problem-matcher/README.md",
+  "devDependencies": {
+    "@vscode/vsce": "^3.6.0"
+  },
   "engines": {
     "vscode": "^1.100.2"
   },
