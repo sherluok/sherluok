@@ -1,6 +1,7 @@
 packages:
   - ./.github/actions/*
-  - ./.vscode/extensions/*
+  # - ./.vscode/extensions/*
+  - ./dotcom
   - ./integrations/*
   - ./packages/*
   - ./command-line-tools

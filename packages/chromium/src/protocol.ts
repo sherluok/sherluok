@@ -1,8 +1,8 @@
-export type { Protocol } from './types/protocol';
-export type { ProtocolSession } from './types/protocol-session.d.ts';
-
 import { Subject } from 'rxjs';
 import type { ProtocolSession } from './types/protocol-session.d.ts';
+
+export type { Protocol } from './types/protocol';
+export type { ProtocolSession } from './types/protocol-session.d.ts';
 
 export const TargetType = Object.freeze({
   Tab: 'tab',

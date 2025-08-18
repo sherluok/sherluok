@@ -3,6 +3,7 @@ import { VanillaExtractPlugin } from '@vanilla-extract/webpack-plugin';
 import { Pattern as CopyPattern, default as CopyPlugin } from 'copy-webpack-plugin';
 import { default as ForkTsCheckerPlugin } from 'fork-ts-checker-webpack-plugin';
 import { default as MiniCssExtractPlugin } from 'mini-css-extract-plugin';
+import { ok } from 'node:assert';
 import { extname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { default as reactRefreshTypeScript } from 'react-refresh-typescript';
@@ -203,6 +204,7 @@ export function stringify(webpackConfig: WebpackConfiguration): string {
 /** 使用 Webpack Dev Server 运行。 */
 export function serve(webpackConfig: WebpackConfiguration, devServerConfig?: DevServerConfig): Promise<void> {
   const compiler = webpack(webpackConfig);
+  ok(compiler);
   const port = devServerConfig?.port ?? 3000;
   const devServer = new WebpackDevServer({
     port,
@@ -232,6 +234,7 @@ export function serve(webpackConfig: WebpackConfiguration, devServerConfig?: Dev
 /** 编译构建输出。 */
 export function build(webpackConfig: WebpackConfiguration): Promise<Stats> {
   const compiler = webpack(webpackConfig);
+  ok(compiler);
   return new Promise<Stats>((fulfill, reject) => {
     compiler.run((error, stats) => {
       if (error || !stats) {

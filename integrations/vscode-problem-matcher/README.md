@@ -1,0 +1,2 @@
+- https://github.com/connor4312/esbuild-problem-matchers
+- esbuild 默认错误输出格式参考文档 https://esbuild.github.io/api/#logging 和源码
