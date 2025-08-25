@@ -323,6 +323,8 @@ class VscodeTaskPlugin implements WebpackPluginInstance {
   }
 }
 
+// https://github.com/tj/commander.js
+
 if (require.main === module) {
   const program = new Command();
 

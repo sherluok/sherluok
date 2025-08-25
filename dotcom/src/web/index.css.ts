@@ -1,11 +1,8 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { Inter } from './media/fonts/inter.css';
-import { JetBrainsMono } from './media/fonts/jetbrains-mono.css';
+import { vars } from '^/web/vars.css';
 
 globalStyle('html', {
-  fontFamily: `${Inter}, system-ui`,
-  color: `light-dark(black, white)`,
-  backgroundColor: `light-dark(white, oklch(20% 0% 48))`,
+  colorScheme: 'light',
   '@media': {
     '(prefers-color-scheme: dark)': {
       colorScheme: 'dark',
@@ -14,15 +11,15 @@ globalStyle('html', {
 });
 
 globalStyle('html', {
-  fontFamily: `${Inter}, sans-serif, system-ui`,
-  backgroundColor: `light-dark(white, oklch(20% 0% 48))`,
+  backgroundColor: `light-dark(white, black)`,
   color: `light-dark(black, white)`,
 });
 
 globalStyle('body', {
+  fontFamily: vars.fontBody,
   margin: 0,
 });
 
 globalStyle('code', {
-  fontFamily: `${JetBrainsMono}, monospace, system-ui`,
+  fontFamily: vars.fontCode,
 });

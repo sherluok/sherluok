@@ -3,6 +3,12 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "launch chrome",
+      "type": "chrome",
+      "remoteDebuggingPort": 9230,
+      "startingPage": "http://localhost:3000"
+    },
+    {
       "label": "projects/vscode:pre-extension-host",
       "dependsOn": [
         "projects/vscode:watch-extension",

@@ -1,5 +1,4 @@
 import { globalStyle, style } from '@vanilla-extract/css';
-import { Inter } from '^/web/media/fonts/inter.css';
 import { vars } from '^/web/vars.css';
 
 export const page = {
@@ -26,12 +25,12 @@ export const page = {
   }),
   itemTitle: style({
     gridArea: 'title',
-    font: `600 16px/28px ${Inter}, sans-serif, system-ui`,
+    font: `600 16px/28px ${vars.fontBody}`,
     color: vars.textColor,
   }),
   itemDescription: style({
     gridArea: 'description',
-    font: `400 14px/20px ${Inter}, sans-serif, system-ui`,
+    font: `400 14px/20px ${vars.fontBody}`,
     color: vars.textColorSecondary,
   }),
 };

@@ -1,105 +1,166 @@
 {
-  "name": "problem-matcher",
+  "name": "vscode-problem-matcher",
+  "private": true,
   "version": "0.1.0",
+  "displayName": "Tasks Problem Matchers",
+  "description": "VS Code tasks problem matchers for daily development.",
+  "icon": "./assets/icon.png",
   "publisher": "sherluok",
-  "displayName": "Problem Matchers",
-  "description": "Problem matchers for esbuild, wrangler...",
-  "license": "MIT",
-  "icon": "./media/icon.png",
   "scripts": {
-    "pkg": "vsce package"
+    "link": "node --import tsx src/link.ts",
+    "watch": "esbuild src/vscode.ts src/execution.ts --bundle --outdir=out --sourcemap --platform=node --target=node20.18.1 --packages=external --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sherluok/sherluok"
-  },
-  "homepage": "https://github.com/sherluok/sherluok/.vscode/extensions/problem-matcher/README.md",
   "devDependencies": {
-    "@vscode/vsce": "^3.6.0"
+    "@types/node": "^24.2.1",
+    "@types/vscode": "^1.102.0",
+    "devtools-protocol": "^0.0.1498597",
+    "esbuild": "^0.25.8",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
   },
   "engines": {
-    "vscode": "^1.100.2"
+    "vscode": "^1.96.2"
   },
+  "main": "./out/vscode.js",
+  "activationEvents": [
+    "*",
+    "onCommand:workbench.action.tasks.runTask"
+  ],
   "contributes": {
+    "icons": {
+      "logo-esbuild": {
+        "description": "esbuild logo",
+        "default": {
+          "fontPath": "./assets/icon/font/brand.woff2",
+          "fontCharacter": "\\E601"
+        }
+      },
+      "logo-webpack": {
+        "description": "Webpack logo",
+        "default": {
+          "fontPath": "./assets/icon/font/brand.woff2",
+          "fontCharacter": "\\E602"
+        }
+      },
+      "logo-react": {
+        "description": "React logo",
+        "default": {
+          "fontPath": "./assets/icon/font/brand.woff2",
+          "fontCharacter": "\\E603"
+        }
+      },
+      "logo-cloudflare": {
+        "description": "Cloudflare logo",
+        "default": {
+          "fontPath": "./assets/icon/font/brand.woff2",
+          "fontCharacter": "\\E604"
+        }
+      },
+      "logo-node": {
+        "description": "Node.js logo",
+        "default": {
+          "fontPath": "./assets/icon/font/brand.woff2",
+          "fontCharacter": "\\E605"
+        }
+      }
+    },
+    "problemPatterns": [
+      {
+        "name": "rollup",
+        "patterns": [
+          {
+            "regexp": "^\\[!\\] RollupError: \\[plugin typescript\\] .+ @rollup\\/plugin-typescript TS(?<errorCode>\\d+): (?<message>.+)\\r?\\n(?<file>.*?):\\s*\\((?<line>\\d+):(?<column>\\d+)\\)$",
+            "file": 3,
+            "line": 4,
+            "column": 5,
+            "code": 1,
+            "message": 2
+          },
+          {
+            "regexp": "^\\(!\\) \\[plugin typescript\\] .+ @rollup\\/plugin-typescript TS(?<errorCode>\\d+): (?<message>.+)\\r?\\n(?<file>.*?):\\s*\\((?<line>\\d+):(?<column>\\d+)\\)$",
+            "file": 3,
+            "line": 4,
+            "column": 5,
+            "code": 1,
+            "message": 2
+          }
+        ]
+      }
+    ],
     "problemMatchers": [
       {
         "name": "esbuild",
-        "label": "esbuild problem matcher",
-        "severity": "error",
-        "applyTo": "closedDocuments",
-        "source": "esbuild",
+        "owner": "typescript",
         "fileLocation": "relative",
-        "pattern": [
-          {
-            "regexp": "^X \\[([A-Z]+)\\] (.+)",
-            "severity": 1,
-            "message": 2
-          },
-          {
-            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
-            "file": 1,
-            "line": 2,
-            "column": 3
-          }
-        ]
-      },
-      {
-        "name": "esbuild-watch",
-        "label": "esbuild --watch problem matcher",
-        "severity": "error",
-        "applyTo": "closedDocuments",
-        "source": "esbuild",
-        "fileLocation": "relative",
-        "pattern": [
-          {
-            "regexp": "^X \\[([A-Z]+)\\] (.+)",
-            "severity": 1,
-            "message": 2
-          },
-          {
-            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
-            "file": 1,
-            "line": 2,
-            "column": 3
-          }
-        ],
+        "pattern": "$rollup",
         "background": {
           "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "\\[watch\\] build started"
-          },
-          "endsPattern": {
-            "regexp": "\\[watch\\] build finished"
-          }
+          "beginsPattern": "^esbuild start$",
+          "endsPattern": "^esbuild end$"
         }
       },
       {
-        "name": "wrangler-dev",
-        "label": "wrangler dev problem matcher",
-        "severity": "error",
-        "applyTo": "closedDocuments",
-        "source": "wrangler",
+        "name": "webpack",
+        "owner": "typescript",
         "fileLocation": "relative",
-        "pattern": [
-          {
-            "regexp": "^X \\[([A-Z]+)\\] (.+)",
-            "severity": 1,
-            "message": 2
-          },
-          {
-            "regexp": "^(?:\\t| {6})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
-            "file": 1,
-            "line": 2,
-            "column": 3
-          }
-        ],
+        "pattern": "$rollup",
         "background": {
           "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "Reloading local server"
+          "beginsPattern": "^\\[webpack\\] compilation start\\.$",
+          "endsPattern": "^\\[webpack\\] compilation end\\.$"
+        }
+      },
+      {
+        "name": "wrangler",
+        "owner": "typescript",
+        "fileLocation": "relative",
+        "pattern": {
+          "regexp": "^(?<file>.+\\.rs):(?<line>\\d+):(?<col>\\d+):\\s+(?<message>.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "message": 4
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "(Starting|Reloading) local server\\.\\.\\.",
+          "endsPattern": "(Ready|Updated and ready) on"
+        }
+      },
+      {
+        "name": "common",
+        "owner": "typescript",
+        "fileLocation": "relative",
+        "pattern": {
+          "regexp": "^([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "code": 5,
+          "message": 6
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^vscode background task begins pattern",
+          "endsPattern": "^vscode background task ends pattern"
+        }
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "open-browser-page",
+        "required": [
+          "remoteDebuggingPort"
+        ],
+        "properties": {
+          "remoteDebuggingPort": {
+            "type": "number",
+            "description": "The Rake task to customize"
           },
-          "endsPattern": {
-            "regexp": "Local server ready"
+          "makesureOpenPageUrl": {
+            "type": "string",
+            "description": "The Rake file that provides the task. Can be omitted."
           }
         }
       }

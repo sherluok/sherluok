@@ -17,7 +17,7 @@ export function GlobalLayout(props: GlobalLayoutProps) {
           <FontAwesomeIcon icon={faPoop} />
         </Link>
         <div className={globalLayout.middle}>
-          <NavLink className={globalLayout.title} to="/">SherLuoK</NavLink>
+          <NavLink className={globalLayout.title} to="/">傻罗克</NavLink>
           <div className={globalLayout.menuList}>
             <NavLink className={globalLayout.menuItem} to="/posts">Posts</NavLink>
             <NavLink className={globalLayout.menuItem} to="/photography">Photography</NavLink>

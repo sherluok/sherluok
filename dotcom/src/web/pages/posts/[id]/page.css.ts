@@ -1,6 +1,4 @@
 import { globalStyle, GlobalStyleRule, style } from '@vanilla-extract/css';
-import { Inter } from '^/web/media/fonts/inter.css';
-import { JetBrainsMono } from '^/web/media/fonts/jetbrains-mono.css';
 import { vars } from '^/web/vars.css';
 
 export const post = {
@@ -12,11 +10,11 @@ export const post = {
     marginBottom: 32,
   }),
   title: style({
-    font: `900 40px/50px ${Inter}, sans-serif, system-ui`,
+    font: `900 40px/50px ${vars.fontBody}`,
     color: vars.textColor,
   }),
   metadata: style({
-    font: `400 16px/28px ${Inter}, sans-serif, system-ui`,
+    font: `400 16px/28px ${vars.fontBody}`,
     color: vars.textColorSecondary,
   }),
   author: style({
@@ -25,7 +23,7 @@ export const post = {
   }),
   article: style({
     gridColumn: '2 / 3',
-    font: `400 16px/28px ${Inter}, sans-serif, system-ui`,
+    font: `400 16px/28px ${vars.fontBody}`,
     color: vars.textColor,
   }),
   toc: style({
@@ -42,7 +40,7 @@ export const post = {
     boxSizing: 'border-box',
   }),
   tocItem: style({
-    font: `400 15px/24px ${Inter}, sans-serif, system-ui`,
+    font: `400 15px/24px ${vars.fontBody}`,
     textDecoration: 'underline',
     textDecorationColor: `rgb(from currentcolor r g b / 50%)`,
     color: 'currentcolor',
@@ -70,7 +68,7 @@ mdxStyle(`pre`, {
 });
 
 mdxStyle(`code`, {
-  fontFamily: `${JetBrainsMono}, monospace, system-ui`,
+  fontFamily: vars.fontCode,
 });
 
 mdxStyle(`pre code`, {

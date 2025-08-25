@@ -27,13 +27,13 @@ const InternalServerError = () => new Response('Internal Server Error', {
   status: 500,
 });
 
-
-export type SessionInfo = z.infer<typeof SessionInfo>;
-export const SessionInfo = z.object({
+const SessionInfo = z.object({
   expiresAt: z.number(),
   username: z.string(),
   admin: z.boolean(),
 });
+
+type SessionInfo = z.infer<typeof SessionInfo>;
 
 async function createSession(env: Env, info: SessionInfo): Promise<TokenInfo> {
   const token = randomBytes(16).toString('hex');

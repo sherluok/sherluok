@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
-import { Inter } from '^/web/media/fonts/inter.css';
 import { vars } from '^/web/vars.css';
 
 export const globalLayout = {
@@ -29,8 +28,12 @@ export const globalLayout = {
     gridColumn: '1 / -1',
     marginTop: 64,
     padding: 32,
-    background: 'light-dark(black, white)',
-    color: 'light-dark(white, black)',
+    // background: 'light-dark(black, white)',
+    // color: 'light-dark(white, black)',
+    display: 'flex',
+    justifyContent: 'center',
+    color: 'light-dark(oklch(50% 0% 0deg), oklch(50% 0% 0deg))',
+    font: `400 14px/16px ${vars.fontBody}`,
   }),
   icon: style({
     fontSize: 16,
@@ -44,7 +47,7 @@ export const globalLayout = {
   }),
   title: recipe({
     base: {
-      font: `600 16px/28px ${Inter}, sans-serif, system-ui`,
+      font: `600 16px/28px ${vars.fontBody}`,
       textDecoration: 'none',
       color: 'currentcolor',
     },
@@ -72,7 +75,7 @@ export const globalLayout = {
   }),
   menuItem: recipe({
     base: {
-      font: `600 16px/28px ${Inter}, sans-serif, system-ui`,
+      font: `600 16px/28px ${vars.fontBody}`,
       textDecoration: 'none',
       color: 'currentcolor',
     },

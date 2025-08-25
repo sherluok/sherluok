@@ -5,13 +5,20 @@ export const vars = {
   backgroundColor: createVar('backgroundColor'),
   backgroundImage: createVar('backgroundImage'),
   textColorSecondary: createVar(),
+  fontBody: createVar('fontBody'),
+  fontCode: createVar('fontCode'),
 };
 
 globalStyle('html', {
+  vars: {
+    [vars.fontBody]: `"Inter Variable", "Noto Sans SC", sans-serif, system-ui`,
+    [vars.fontCode]: `"JetBrains Mono Variable", "Noto Sans SC", monospace, system-ui`,
+  },
   '@media': {
     '(prefers-color-scheme: light)': {
       vars: {
-        [vars.backgroundColor]: 'oklch(88% 16% 0deg)',
+        // [vars.backgroundColor]: 'oklch(88% 16% 0deg)',
+        [vars.backgroundColor]: 'white',
         [vars.backgroundImage]: 'none',
         [vars.textColor]: 'hsl(0 0% 8%)',
       },

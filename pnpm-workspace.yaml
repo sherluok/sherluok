@@ -1,11 +1,9 @@
 packages:
   - ./.github/actions/*
-  # - ./.vscode/extensions/*
+  - ./.vscode/extensions/*
   - ./dotcom
   - ./integrations/*
   - ./packages/*
   - ./command-line-tools
   - ./figma-icons-exporter
-  - ./sherluok.com
-  - ./ui-components
   - ./vscode-problem-matcher
