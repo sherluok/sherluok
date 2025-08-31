@@ -1,5 +1,5 @@
 import { RouteObject } from 'react-router';
-import { GlobalLayout } from './pages/global-layout';
+import { GlobalLayout } from './pages/layout';
 
 export const routeObjects: RouteObject[] = [
   {

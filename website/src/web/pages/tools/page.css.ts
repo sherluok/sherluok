@@ -31,7 +31,7 @@ export const page = {
   itemDescription: style({
     gridArea: 'description',
     font: `400 14px/20px ${vars.fontBody}`,
-    color: vars.textColorSecondary,
+    color: vars.textColor,
   }),
 };
 

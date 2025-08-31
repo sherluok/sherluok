@@ -1,6 +1,6 @@
 import { faGhost } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GlobalMain } from '^/web/pages/global-layout';
+import { GlobalMain } from '^/web/pages/layout';
 import { Link } from 'react-router';
 import { page } from './page.css';
 

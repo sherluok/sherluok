@@ -1,0 +1,86 @@
+# 搭建 STM32 开发环境
+
+与 STM32 相关的代码统一放在本机的 `C:\Users\host\src\hardware\stm32` 文件夹下，其中：
+- `stm32cubeide-workspace` 文件夹是 STM32CubeIDE 工作区；
+
+### 安装 OpenOCD
+
+下载 https://gnutoolchains.com/arm-eabi/openocd/ 并解压到 `C:\Users\host\AppData\Local\Programs\Arm\openocd\0.12.0` 目录，将其中的 `bin` 目录添加到系统环境变量的 PATH 下，然后打开终端输入下面的命令进行测试：
+
+```sh
+openocd -f interface/stlink.cfg -f target/stm32f1x.cfg
+```
+
+其中 `interface/stlink.cfg` 和 `target/stm32f1x.cfg` 都是位于 `share\openocd\scripts` 目录下的设备配置文件。
+
+### 使用 Clion 开发 STM32
+
+首先安装 Clion、下载 [[#STM32CubeMX]]、[[#STM32CubeCLT]]。
+
+然后参考 JetBrains 官方文章 https://www.jetbrains.com/help/clion/embedded-stm32.html 进行安装和配置。
+
+另外还可以参考 Keysking 的视频 https://www.bilibili.com/video/BV1pnjizYEAk 和 https://www.bilibili.com/video/BV1B2TuztE4i ，但他视频的一些步骤有问题可能导致编译不起来，最好结合官方文章食用。
+
+### 使用 VS Code 开发 STM32
+
+安装 [C/C++ Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack) 扩展包，主要是为了安装该扩展包中的 [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) 和 [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) 扩展。
+
+使用 [[#STM32CubeMX]] 以 CMake 为目标生成代码后，用 VS Code 打开。在你平时编辑代码时，是 C/C++ 扩展在提供代码高亮、跳转等语言服务。C/C++ 扩展支持使用 CMake 作为配置来源，一般它会在你打开项目时询问你是否希望用 CMake 来提供配置。你也可以手动的调用命令 `CMake: Delete Cache and Reconfigure with CMake Debugger` 来达到相同的目的。
+
+CMake 的默认配置中，编译器、生成器等命令使用的是名称，这意味着你需要把这些命令添加到到环境变量 `PATH` 中。可能 [[#STM32CubeCLT]] 在安装时已经帮你做了，但你还是可以通过 `.vscode/settings.json` 来手动配置：
+
+```json
+{
+  "cmake.cmakePath": "C:\\Users\\xxxx\\STM32CubeCLT\\CMake\\bin\\cmake.exe",
+  "cmake.generator": "C:\\Users\\xxxx\\STM32CubeCLT\\Ninja\\bin\\ninja.exe",
+  "cmake.additionalCompilerSearchDirs": [
+    "C:\\Users\\xxxx\\STM32CubeCLT\\GNU-tools-for-STM32\\bin"
+  ]
+}
+```
+
+[Embedded Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-embedded-tools)
+
+#### STM32CubeMX
+
+在 https://www.st.com/en/development-tools/stm32cubemx.html 下载，安装到 `C:\Users\host\AppData\Local\Programs\STM32CubeMX`。
+
+#### STM32CubeCLT
+
+在 https://www.st.com/en/development-tools/stm32cubeclt.html 下载，安装到 `C:\Users\host\AppData\Local\Programs\STM32CubeCLT`。
+
+#### STM32CubeIDE
+
+在 https://www.st.com/en/development-tools/stm32cubeide.html 下载，安装到 `C:\Users\host\AppData\Local\Programs\STM32CubeIDE`。
+
+#### MDK
+
+在 https://developer.arm.com/downloads/view/MDK000 下载 MDK，安装到`C:\Users\host\AppData\Local\Keil_v5`。这里记录一下当期安装 MDK 使用的默认路径分别为：
+- Core: `C:\Users\host\AppData\Local\Keil_v5`
+- Pack: `C:\Users\host\AppData\Local\Arm\Packs`
+
+#### OpenOCD
+
+在 https://gnutoolchains.com/arm-eabi/openocd/ 下载并解压。
+- 解压到：`C:\Users\host\AppData\Local\Programs\Arm\openocd\0.12.0`；
+- 环境变量：`C:\Users\host\AppData\Local\Programs\Arm\openocd\0.12.0\bin`；
+- 测试：`openocd -f interface/stlink.cfg -f target/stm32f1x.cfg`；
+- 其中使用到的 STLink 和 target 的配置文件位于 `C:\Users\host\AppData\Local\Programs\Arm\openocd\0.12.0\share\openocd\scripts` 目录下。
+
+#### STM32F103RB 芯片 SVD 文件
+
+SVD 是芯片的寄存器和其它硬件参数描述文件，在 https://www.st.com/en/microcontrollers-microprocessors/stm32f103rb.html#cad-resources 下载。
+
+#### STM32F103RB Nucleo 开发板文档
+
+https://www.st.com/en/evaluation-tools/nucleo-f103rb.html
+
+#### CMake Tools
+
+VS Code 的 CMake 扩展，在 https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools 安装，也可以通过 [C/C++ Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack) 扩展包安装。
+
+微软官方关于如何在 VS Code 中使用 CMake 的文章：
+https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/README.md
+
+著名 CMake 教程 [Modern CMake](https://cliutils.gitlab.io/modern-cmake/) 的简体中文翻译版：
+https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/

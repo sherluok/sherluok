@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { cx } from '^/common/css';
 import { ReactNode } from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
-import { globalLayout } from './global-layout.css';
+import { globalLayout } from './layout.css';
 
 interface GlobalLayoutProps {
 }
@@ -17,10 +17,11 @@ export function GlobalLayout(props: GlobalLayoutProps) {
           <FontAwesomeIcon icon={faPoop} />
         </Link>
         <div className={globalLayout.middle}>
-          <NavLink className={globalLayout.title} to="/">傻罗克</NavLink>
+          <NavLink className={globalLayout.title} to="/">SherLuoK</NavLink>
           <div className={globalLayout.menuList}>
             <NavLink className={globalLayout.menuItem} to="/posts">Posts</NavLink>
-            <NavLink className={globalLayout.menuItem} to="/photography">Photography</NavLink>
+            <NavLink className={globalLayout.menuItem} to="/photography">Photo</NavLink>
+            <NavLink className={globalLayout.menuItem} to="/music">Music</NavLink>
             <NavLink className={globalLayout.menuItem} to="/tools">Tools</NavLink>
           </div>
         </div>

@@ -15,166 +15,6 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
-  dotcom:
-    dependencies:
-      '@fontsource-variable/inter':
-        specifier: ^5.2.6
-        version: 5.2.6
-      '@fontsource-variable/jetbrains-mono':
-        specifier: ^5.2.6
-        version: 5.2.6
-      '@fortawesome/fontawesome-svg-core':
-        specifier: ^7.0.0
-        version: 7.0.0
-      '@fortawesome/free-brands-svg-icons':
-        specifier: ^7.0.0
-        version: 7.0.0
-      '@fortawesome/free-solid-svg-icons':
-        specifier: ^7.0.0
-        version: 7.0.0
-      '@fortawesome/react-fontawesome':
-        specifier: ^0.2.3
-        version: 0.2.3(@fortawesome/fontawesome-svg-core@7.0.0)(react@19.1.1)
-      '@inquirer/prompts':
-        specifier: ^7.8.1
-        version: 7.8.1(@types/node@24.2.1)
-      '@pmmmwh/react-refresh-webpack-plugin':
-        specifier: ^0.6.1
-        version: 0.6.1(react-refresh@0.17.0)(type-fest@4.41.0)(webpack-dev-server@5.2.2(webpack@5.101.0(esbuild@0.25.8)))(webpack@5.101.0(esbuild@0.25.8))
-      '@types/hast':
-        specifier: ^3.0.4
-        version: 3.0.4
-      '@types/react':
-        specifier: ^19.1.10
-        version: 19.1.10
-      '@types/react-dom':
-        specifier: ^19.1.7
-        version: 19.1.7(@types/react@19.1.10)
-      '@types/webpack-bundle-analyzer':
-        specifier: ^4.7.0
-        version: 4.7.0(esbuild@0.25.8)
-      '@vanilla-extract/css':
-        specifier: ^1.17.4
-        version: 1.17.4
-      '@vanilla-extract/recipes':
-        specifier: ^0.5.6
-        version: 0.5.6(@vanilla-extract/css@1.17.4)
-      '@vanilla-extract/webpack-plugin':
-        specifier: ^2.3.22
-        version: 2.3.22(webpack@5.101.0(esbuild@0.25.8))
-      autoprefixer:
-        specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.6)
-      commander:
-        specifier: ^14.0.0
-        version: 14.0.0
-      copy-webpack-plugin:
-        specifier: ^13.0.0
-        version: 13.0.0(webpack@5.101.0(esbuild@0.25.8))
-      css-loader:
-        specifier: ^7.1.2
-        version: 7.1.2(webpack@5.101.0(esbuild@0.25.8))
-      drizzle-orm:
-        specifier: ^0.44.4
-        version: 0.44.4
-      esbuild:
-        specifier: ^0.25.8
-        version: 0.25.8
-      fork-ts-checker-webpack-plugin:
-        specifier: ^9.1.0
-        version: 9.1.0(typescript@5.9.2)(webpack@5.101.0(esbuild@0.25.8))
-      hast-util-from-html:
-        specifier: ^2.0.3
-        version: 2.0.3
-      hast-util-to-html:
-        specifier: ^9.0.5
-        version: 9.0.5
-      html-webpack-plugin:
-        specifier: ^5.6.3
-        version: 5.6.3(webpack@5.101.0(esbuild@0.25.8))
-      memfs:
-        specifier: ^4.36.0
-        version: 4.36.0
-      mimetext:
-        specifier: ^3.0.27
-        version: 3.0.27
-      mini-css-extract-plugin:
-        specifier: ^2.9.4
-        version: 2.9.4(webpack@5.101.0(esbuild@0.25.8))
-      postcss:
-        specifier: ^8.5.6
-        version: 8.5.6
-      postcss-loader:
-        specifier: ^8.1.1
-        version: 8.1.1(postcss@8.5.6)(typescript@5.9.2)(webpack@5.101.0(esbuild@0.25.8))
-      react:
-        specifier: ^19.1.1
-        version: 19.1.1
-      react-dom:
-        specifier: ^19.1.1
-        version: 19.1.1(react@19.1.1)
-      react-refresh:
-        specifier: ^0.17.0
-        version: 0.17.0
-      react-refresh-typescript:
-        specifier: ^2.0.10
-        version: 2.0.10(react-refresh@0.17.0)(typescript@5.9.2)
-      react-router:
-        specifier: ^7.8.0
-        version: 7.8.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      rxjs:
-        specifier: ^7.8.2
-        version: 7.8.2
-      style-loader:
-        specifier: ^4.0.0
-        version: 4.0.0(webpack@5.101.0(esbuild@0.25.8))
-      terser-webpack-plugin:
-        specifier: ^5.3.14
-        version: 5.3.14(esbuild@0.25.8)(webpack@5.101.0(esbuild@0.25.8))
-      ts-loader:
-        specifier: ^9.5.2
-        version: 9.5.2(typescript@5.9.2)(webpack@5.101.0(esbuild@0.25.8))
-      tsconfig-paths-webpack-plugin:
-        specifier: ^4.2.0
-        version: 4.2.0
-      unionfs:
-        specifier: ^4.6.0
-        version: 4.6.0
-      unist-util-visit:
-        specifier: ^5.0.0
-        version: 5.0.0
-      webpack:
-        specifier: ^5.101.0
-        version: 5.101.0(esbuild@0.25.8)
-      webpack-bundle-analyzer:
-        specifier: ^4.10.2
-        version: 4.10.2
-      webpack-dev-server:
-        specifier: ^5.2.2
-        version: 5.2.2(webpack@5.101.0(esbuild@0.25.8))
-      zod:
-        specifier: ^4.0.17
-        version: 4.0.17
-    devDependencies:
-      '@mdx-js/loader':
-        specifier: ^3.1.0
-        version: 3.1.0(acorn@8.15.0)(webpack@5.101.0(esbuild@0.25.8))
-      '@types/node':
-        specifier: ^24.2.1
-        version: 24.2.1
-      remark-mdx-toc:
-        specifier: ^0.3.1
-        version: 0.3.1
-      tsx:
-        specifier: ^4.20.3
-        version: 4.20.3
-      typescript:
-        specifier: ^5.9.2
-        version: 5.9.2
-      wrangler:
-        specifier: ^4.28.1
-        version: 4.28.1
-
   integrations/vscode-problem-matcher:
     devDependencies:
       '@types/node':
@@ -327,6 +167,172 @@ importers:
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
+
+  website:
+    dependencies:
+      '@fontsource-variable/inter':
+        specifier: ^5.2.6
+        version: 5.2.6
+      '@fontsource-variable/jetbrains-mono':
+        specifier: ^5.2.6
+        version: 5.2.6
+      '@fortawesome/fontawesome-svg-core':
+        specifier: ^7.0.0
+        version: 7.0.0
+      '@fortawesome/free-brands-svg-icons':
+        specifier: ^7.0.0
+        version: 7.0.0
+      '@fortawesome/free-solid-svg-icons':
+        specifier: ^7.0.0
+        version: 7.0.0
+      '@fortawesome/react-fontawesome':
+        specifier: ^0.2.3
+        version: 0.2.3(@fortawesome/fontawesome-svg-core@7.0.0)(react@19.1.1)
+      '@inquirer/prompts':
+        specifier: ^7.8.1
+        version: 7.8.1(@types/node@24.2.1)
+      '@mdx-js/mdx':
+        specifier: ^3.1.0
+        version: 3.1.0(acorn@8.15.0)
+      '@pmmmwh/react-refresh-webpack-plugin':
+        specifier: ^0.6.1
+        version: 0.6.1(react-refresh@0.17.0)(type-fest@4.41.0)(webpack-dev-server@5.2.2(webpack@5.101.0(esbuild@0.25.8)))(webpack@5.101.0(esbuild@0.25.8))
+      '@types/hast':
+        specifier: ^3.0.4
+        version: 3.0.4
+      '@types/react':
+        specifier: ^19.1.10
+        version: 19.1.10
+      '@types/react-dom':
+        specifier: ^19.1.7
+        version: 19.1.7(@types/react@19.1.10)
+      '@types/webpack-bundle-analyzer':
+        specifier: ^4.7.0
+        version: 4.7.0(esbuild@0.25.8)
+      '@vanilla-extract/css':
+        specifier: ^1.17.4
+        version: 1.17.4
+      '@vanilla-extract/recipes':
+        specifier: ^0.5.6
+        version: 0.5.6(@vanilla-extract/css@1.17.4)
+      '@vanilla-extract/webpack-plugin':
+        specifier: ^2.3.22
+        version: 2.3.22(webpack@5.101.0(esbuild@0.25.8))
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
+      commander:
+        specifier: ^14.0.0
+        version: 14.0.0
+      copy-webpack-plugin:
+        specifier: ^13.0.0
+        version: 13.0.0(webpack@5.101.0(esbuild@0.25.8))
+      css-loader:
+        specifier: ^7.1.2
+        version: 7.1.2(webpack@5.101.0(esbuild@0.25.8))
+      drizzle-orm:
+        specifier: ^0.44.4
+        version: 0.44.4
+      esbuild:
+        specifier: ^0.25.8
+        version: 0.25.8
+      fork-ts-checker-webpack-plugin:
+        specifier: ^9.1.0
+        version: 9.1.0(typescript@5.9.2)(webpack@5.101.0(esbuild@0.25.8))
+      hast-util-from-html:
+        specifier: ^2.0.3
+        version: 2.0.3
+      hast-util-to-html:
+        specifier: ^9.0.5
+        version: 9.0.5
+      html-webpack-plugin:
+        specifier: ^5.6.3
+        version: 5.6.3(webpack@5.101.0(esbuild@0.25.8))
+      memfs:
+        specifier: ^4.36.0
+        version: 4.36.0
+      mimetext:
+        specifier: ^3.0.27
+        version: 3.0.27
+      mini-css-extract-plugin:
+        specifier: ^2.9.4
+        version: 2.9.4(webpack@5.101.0(esbuild@0.25.8))
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
+      postcss-loader:
+        specifier: ^8.1.1
+        version: 8.1.1(postcss@8.5.6)(typescript@5.9.2)(webpack@5.101.0(esbuild@0.25.8))
+      react:
+        specifier: ^19.1.1
+        version: 19.1.1
+      react-dom:
+        specifier: ^19.1.1
+        version: 19.1.1(react@19.1.1)
+      react-refresh:
+        specifier: ^0.17.0
+        version: 0.17.0
+      react-refresh-typescript:
+        specifier: ^2.0.10
+        version: 2.0.10(react-refresh@0.17.0)(typescript@5.9.2)
+      react-router:
+        specifier: ^7.8.0
+        version: 7.8.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      rehype-mdx-title:
+        specifier: ^3.2.0
+        version: 3.2.0
+      rxjs:
+        specifier: ^7.8.2
+        version: 7.8.2
+      style-loader:
+        specifier: ^4.0.0
+        version: 4.0.0(webpack@5.101.0(esbuild@0.25.8))
+      terser-webpack-plugin:
+        specifier: ^5.3.14
+        version: 5.3.14(esbuild@0.25.8)(webpack@5.101.0(esbuild@0.25.8))
+      ts-loader:
+        specifier: ^9.5.2
+        version: 9.5.2(typescript@5.9.2)(webpack@5.101.0(esbuild@0.25.8))
+      tsconfig-paths-webpack-plugin:
+        specifier: ^4.2.0
+        version: 4.2.0
+      unionfs:
+        specifier: ^4.6.0
+        version: 4.6.0
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
+      webpack:
+        specifier: ^5.101.0
+        version: 5.101.0(esbuild@0.25.8)
+      webpack-bundle-analyzer:
+        specifier: ^4.10.2
+        version: 4.10.2
+      webpack-dev-server:
+        specifier: ^5.2.2
+        version: 5.2.2(webpack@5.101.0(esbuild@0.25.8))
+      zod:
+        specifier: ^4.0.17
+        version: 4.0.17
+    devDependencies:
+      '@mdx-js/loader':
+        specifier: ^3.1.0
+        version: 3.1.0(acorn@8.15.0)(webpack@5.101.0(esbuild@0.25.8))
+      '@types/node':
+        specifier: ^24.2.1
+        version: 24.2.1
+      remark-mdx-toc:
+        specifier: ^0.3.1
+        version: 0.3.1
+      tsx:
+        specifier: ^4.20.3
+        version: 4.20.3
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      wrangler:
+        specifier: ^4.28.1
+        version: 4.28.1
 
 packages:
 
@@ -2195,6 +2201,9 @@ packages:
   hast-util-from-parse5@8.0.3:
     resolution: {integrity: sha512-3kxEVkEKt0zvcZ3hCRYI8rqrgwtlIOFMWkbclACvjlDw8Li9S2hk/d51OI0nr/gIpdMHNepwgOKqZ/sy0Clpyg==}
 
+  hast-util-heading-rank@3.0.0:
+    resolution: {integrity: sha512-EJKb8oMUXVHcWZTDepnr+WNbfnXKFNf9duMesmr4S8SXTJBJ9M4Yok08pu9vxdJwdlGRhVumk9mEhkEvKGifwA==}
+
   hast-util-parse-selector@4.0.0:
     resolution: {integrity: sha512-wkQCkSYoOGCRKERFWcxMVMOcYE2K1AaNLU8DXS9arxnLOUEWbOXKXiJUNzEpqZ3JOKpnha3jkFrumEjVliDe7A==}
 
@@ -2206,6 +2215,9 @@ packages:
 
   hast-util-to-jsx-runtime@2.3.6:
     resolution: {integrity: sha512-zl6s8LwNyo1P9uw+XJGvZtdFF1GdAkOg8ujOw+4Pyb76874fLps4ueHXDhXWdk6YHQ6OgUtinliG7RsYvCbbBg==}
+
+  hast-util-to-string@3.0.1:
+    resolution: {integrity: sha512-XelQVTDWvqcl3axRfI0xSeoVKzyIFPwsAGSLIsKdJKQMXDYJS4WYrBNF/8J7RdhIcFI2BOHgAifggsvsxp/3+A==}
 
   hast-util-whitespace@3.0.0:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
@@ -2969,6 +2981,9 @@ packages:
   recma-stringify@1.0.0:
     resolution: {integrity: sha512-cjwII1MdIIVloKvC9ErQ+OgAtwHBmcZ0Bg4ciz78FtbT8In39aAYbaA7zvxQ61xVMSPE8WxhLwLbhif4Js2C+g==}
 
+  rehype-mdx-title@3.2.0:
+    resolution: {integrity: sha512-/RSVBPQNcEzy8L3F6trvJc7U+S4MgNi8d5Lnpx29wF5isfpA/fPY+BFERj1J3j3R2VgC1UWmrqTlgq7Tf8ytZA==}
+
   rehype-recma@1.0.0:
     resolution: {integrity: sha512-lqA4rGUf1JmacCNWWZx0Wv1dHqMwxzsDWYMTowuplHF3xH0N/MmrZ/G3BDZnzAkRmxDadujCjaKM2hqYdCBOGw==}
 
@@ -3331,6 +3346,9 @@ packages:
 
   unist-util-is@6.0.0:
     resolution: {integrity: sha512-2qCTHimwdxLfz+YzdGfkqNlH0tLi9xjTnHddPmJwtIG9MGsdbutfTc4P+haPD7l7Cjxf/WZj+we5qfVPvvxfYw==}
+
+  unist-util-mdx-define@1.1.2:
+    resolution: {integrity: sha512-9ncH7i7TN5Xn7/tzX5bE3rXgz1X/u877gYVAUB3mLeTKYJmQHmqKTDBi6BTGXV7AeolBCI9ErcVsOt2qryoD0g==}
 
   unist-util-position-from-estree@2.0.0:
     resolution: {integrity: sha512-KaFVRjoqLyF6YXCbVLNad/eS4+OfPQQn2yOd7zF/h5T/CSL2v8NpN6a5TPvtbXthAGw5nG+PuTtq+DdIZr+cRQ==}
@@ -5342,6 +5360,10 @@ snapshots:
       vfile-location: 5.0.3
       web-namespaces: 2.0.1
 
+  hast-util-heading-rank@3.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+
   hast-util-parse-selector@4.0.0:
     dependencies:
       '@types/hast': 3.0.4
@@ -5400,6 +5422,10 @@ snapshots:
       vfile-message: 4.0.2
     transitivePeerDependencies:
       - supports-color
+
+  hast-util-to-string@3.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
 
   hast-util-whitespace@3.0.0:
     dependencies:
@@ -6369,6 +6395,15 @@ snapshots:
       unified: 11.0.5
       vfile: 6.0.3
 
+  rehype-mdx-title@3.2.0:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-heading-rank: 3.0.0
+      hast-util-to-string: 3.0.1
+      unified: 11.0.5
+      unist-util-mdx-define: 1.1.2
+      unist-util-visit-parents: 6.0.1
+
   rehype-recma@1.0.0:
     dependencies:
       '@types/estree': 1.0.8
@@ -6840,6 +6875,16 @@ snapshots:
   unist-util-is@6.0.0:
     dependencies:
       '@types/unist': 3.0.3
+
+  unist-util-mdx-define@1.1.2:
+    dependencies:
+      '@types/estree': 1.0.8
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
+      estree-util-is-identifier-name: 3.0.0
+      estree-util-scope: 1.0.0
+      estree-walker: 3.0.3
+      vfile: 6.0.3
 
   unist-util-position-from-estree@2.0.0:
     dependencies:

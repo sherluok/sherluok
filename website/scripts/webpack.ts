@@ -112,32 +112,30 @@ function createCompiler(production: boolean, analyze: boolean) {
           configFile: tsConfigFile,
         }),
       ],
+      fallback: {
+        fs: false,
+        os: false,
+        tty: false,
+        util: false,
+      },
     },
     module: {
       rules: [
         {
           type: 'asset/resource',
-          resourceQuery(value) {
-            return new URLSearchParams(value).get('asset') === 'resource';
-          },
+          resourceQuery: (value) => new URLSearchParams(value).get('asset') === 'resource',
         },
         {
           type: 'asset/inline',
-          resourceQuery(value) {
-            return new URLSearchParams(value).get('asset') === 'inline';
-          },
+          resourceQuery: (value) => new URLSearchParams(value).get('asset') === 'inline',
         },
         {
           type: 'asset/source',
-          resourceQuery(value) {
-            return new URLSearchParams(value).get('asset') === 'source';
-          },
+          resourceQuery: (value) => new URLSearchParams(value).get('asset') === 'source',
         },
         {
           type: 'asset',
-          resourceQuery(value) {
-            return new URLSearchParams(value).get('asset') === 'auto';
-          },
+          resourceQuery: (value) => new URLSearchParams(value).get('asset') === 'auto',
         },
         {
           test: /\.tsx?$/i,
@@ -195,7 +193,8 @@ function createCompiler(production: boolean, analyze: boolean) {
           ],
         },
         {
-          test: /\.mdx?$/,
+          resource: /\.mdx?$/,
+          resourceQuery: /^$/,
           use: [
             {
               loader: require.resolve('@mdx-js/loader'),

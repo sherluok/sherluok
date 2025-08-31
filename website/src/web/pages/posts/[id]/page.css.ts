@@ -7,7 +7,7 @@ export const post = {
     display: 'flex',
     flexDirection: 'column',
     rowGap: 8,
-    marginBottom: 32,
+    marginBottom: 16,
   }),
   title: style({
     font: `900 40px/50px ${vars.fontBody}`,
@@ -25,6 +25,7 @@ export const post = {
     gridColumn: '2 / 3',
     font: `400 16px/28px ${vars.fontBody}`,
     color: vars.textColor,
+    paddingBlock: 16,
   }),
   toc: style({
     gridColumn: '3 / 4',
@@ -40,7 +41,7 @@ export const post = {
     boxSizing: 'border-box',
   }),
   tocItem: style({
-    font: `400 15px/24px ${vars.fontBody}`,
+    font: `400 15px/28px ${vars.fontBody}`,
     textDecoration: 'underline',
     textDecorationColor: `rgb(from currentcolor r g b / 50%)`,
     color: 'currentcolor',
@@ -62,9 +63,10 @@ mdxStyle(`a`, {
 });
 
 mdxStyle(`pre`, {
-  background: 'oklch(100% 0% 262deg / 4%)',
+  background: 'light-dark(oklch(50% 10% 262deg / 8%), oklch(100% 10% 262deg / 8%))',
   paddingInline: 16,
   paddingBlock: 12,
+  borderRadius: 3,
 });
 
 mdxStyle(`code`, {
@@ -78,7 +80,10 @@ mdxStyle(`pre code`, {
 
 mdxStyle(`p code`, {
   fontSize: '14px',
-  lineHeight: '28px',
-  background: 'oklch(100% 0% 262deg / 12%)',
-  paddingInline: 4,
+  // lineHeight: '28px',
+  // background: 'oklch(100% 0% 262deg / 12%)',
+  background: 'light-dark(oklch(50% 10% 262deg / 8%), oklch(100% 10% 262deg / 8%))',
+  paddingBlock: 2,
+  paddingInline: 6,
+  borderRadius: 2,
 });

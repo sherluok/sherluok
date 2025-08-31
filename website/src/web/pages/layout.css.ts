@@ -47,7 +47,7 @@ export const globalLayout = {
   }),
   title: recipe({
     base: {
-      font: `600 16px/28px ${vars.fontBody}`,
+      font: `700 16px/28px ${vars.fontBody}`,
       textDecoration: 'none',
       color: 'currentcolor',
     },
@@ -99,7 +99,7 @@ export const globalLayout = {
   externalLinkList: style({
     display: 'flex',
     alignItems: 'center',
-    gap: 20,
+    columnGap: 12,
     paddingInline: 32,
   }),
   externalLinkItem: style({
