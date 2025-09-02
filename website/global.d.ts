@@ -32,14 +32,26 @@ declare const PUBLIC_PATH: string;
 
 /** Using webpack `@mdx-js/loader` loader. */
 declare module '*.mdx' {
-  export const toc: TocItem[];
+  export const toc: RemarkMdxTocItem[];
+  export const title: string;
   const MDXContent: React.FunctionComponent<{}>;
   export default MDXContent;
 }
 
-type TocItem = {
+/** [remark-mdx-toc](https://github.com/DCsunset/remark-mdx-toc) */
+type RemarkMdxTocItem = {
   depth: number;
   value: string;
-  children: TocItem[];
+  children: RemarkMdxTocItem[];
   attributes: Record<string, unknown>;
 };
+
+/** [rehype-mdx-toc](https://github.com/boning-w/rehype-mdx-toc) */
+type RehypeMdxTocItem = {
+  depth: number;
+  id?: string;
+  href?: string;
+  value: string;
+  numbering: number[];
+};
+

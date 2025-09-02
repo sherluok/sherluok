@@ -55,11 +55,21 @@ function mdxStyle(subSelector: string, rule: GlobalStyleRule) {
   globalStyle(`${post.article} ${subSelector}`, rule);
 }
 
+// mdxStyle(`a`, {
+//   textDecoration: 'underline',
+//   textDecorationColor: `rgb(from currentcolor r g b / 50%)`,
+//   color: 'oklch(80% 36% 260deg)',
+//   font: 'inherit',
+// });
 mdxStyle(`a`, {
   textDecoration: 'underline',
-  textDecorationColor: `rgb(from currentcolor r g b / 50%)`,
-  color: 'oklch(80% 36% 260deg)',
+  textDecorationColor: `oklch(80% 36% 260deg)`,
+  color: 'currentcolor',
   font: 'inherit',
+});
+
+mdxStyle(`a:hover`, {
+  color: 'oklch(80% 36% 260deg)',
 });
 
 mdxStyle(`pre`, {
@@ -78,7 +88,7 @@ mdxStyle(`pre code`, {
   lineHeight: '20px',
 });
 
-mdxStyle(`p code`, {
+mdxStyle(`:is(p, li) code`, {
   fontSize: '14px',
   // lineHeight: '28px',
   // background: 'oklch(100% 0% 262deg / 12%)',

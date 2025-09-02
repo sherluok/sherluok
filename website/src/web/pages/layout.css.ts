@@ -5,7 +5,7 @@ import { vars } from '^/web/vars.css';
 export const globalLayout = {
   container: style({
     display: 'grid',
-    gridTemplateColumns: '1fr 44rem 1fr',
+    gridTemplateColumns: '1fr 44rem minmax(20rem, 1fr)',
     alignContent: 'start',
     columnGap: 12,
     color: vars.textColor,
