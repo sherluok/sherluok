@@ -49,5 +49,14 @@
     {
       "name": "EMAIL"
     }
+  ],
+  "rules": [
+    {
+      "type": "Text",
+      "globs": [
+        "**/*.mdx?asset=source"
+      ],
+      "fallthrough": true
+    }
   ]
 }

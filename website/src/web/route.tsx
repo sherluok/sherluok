@@ -37,6 +37,10 @@ export const routeObjects: RouteObject[] = [
         path: '/tools/oklch',
         lazy: () => import('./pages/tools/oklch/page'),
       },
+      {
+        path: '/tools/ss-qrcode',
+        lazy: () => import('./pages/tools/ss-qrcode/page'),
+      },
     ],
   },
 ];

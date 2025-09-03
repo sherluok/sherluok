@@ -13,4 +13,6 @@
 - [Extending MDX](https://mdxjs.com/docs/extending-mdx)
   - [remark plugins](https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins)
   - [rehype plugins](https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins)
+    - [rehype-mdx-title](https://github.com/remcohaszing/rehype-mdx-title)
+    - [rehype-pretty-code](https://rehype-pretty.pages.dev/)
 - [MDX Compiler](https://mdxjs.com/packages/mdx/)

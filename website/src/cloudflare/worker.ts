@@ -1,3 +1,4 @@
+import { routeHandler } from '^/cloudflare/router';
 import { GetTokenResponse, PostEmailRequest, PostTokenRequest, PostTokenResponse, TokenInfo } from '^/common/api';
 import { EmailMessage } from 'cloudflare:email';
 import { createMimeMessage } from 'mimetext';
@@ -191,6 +192,9 @@ async function fetchHandler(request: Request, env: Env, ctx: ExecutionContext): 
     }
     return MethodNotAllowed();
   }
+
+  const response = await routeHandler(request);
+  return response;
 
   return NotFound();
 };

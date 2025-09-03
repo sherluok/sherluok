@@ -182,6 +182,9 @@ importers:
       '@fortawesome/free-brands-svg-icons':
         specifier: ^7.0.0
         version: 7.0.0
+      '@fortawesome/free-regular-svg-icons':
+        specifier: ^7.0.1
+        version: 7.0.1
       '@fortawesome/free-solid-svg-icons':
         specifier: ^7.0.0
         version: 7.0.0
@@ -263,6 +266,9 @@ importers:
       postcss-loader:
         specifier: ^8.1.1
         version: 8.1.1(postcss@8.5.6)(typescript@5.9.2)(webpack@5.101.0(esbuild@0.25.8))
+      qrcode.react:
+        specifier: ^4.2.0
+        version: 4.2.0(react@19.1.1)
       react:
         specifier: ^19.1.1
         version: 19.1.1
@@ -284,6 +290,9 @@ importers:
       rehype-mdx-toc:
         specifier: ^1.1.0
         version: 1.1.0
+      rehype-pretty-code:
+        specifier: ^0.14.1
+        version: 0.14.1(shiki@3.12.2)
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
@@ -293,6 +302,9 @@ importers:
       rxjs:
         specifier: ^7.8.2
         version: 7.8.2
+      shiki:
+        specifier: ^3.12.2
+        version: 3.12.2
       style-loader:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.101.0(esbuild@0.25.8))
@@ -810,12 +822,20 @@ packages:
     resolution: {integrity: sha512-PGMrIYXLGA5K8RWy8zwBkd4vFi4z7ubxtet6Yn13Plf6krRTwPbdlCwlcfmoX0R7B4Z643QvrtHmdQ5fNtfFCg==}
     engines: {node: '>=6'}
 
+  '@fortawesome/fontawesome-common-types@7.0.1':
+    resolution: {integrity: sha512-0VpNtO5cNe1/HQWMkl4OdncYK/mv9hnBte0Ew0n6DMzmo3Q3WzDFABHm6LeNTipt5zAyhQ6Ugjiu8aLaEjh1gg==}
+    engines: {node: '>=6'}
+
   '@fortawesome/fontawesome-svg-core@7.0.0':
     resolution: {integrity: sha512-obBEF+zd98r/KtKVW6A+8UGWeaOoyMpl6Q9P3FzHsOnsg742aXsl8v+H/zp09qSSu/a/Hxe9LNKzbBaQq1CEbA==}
     engines: {node: '>=6'}
 
   '@fortawesome/free-brands-svg-icons@7.0.0':
     resolution: {integrity: sha512-C8oY28gq/Qx/cHReJa2AunKJUHvUZDVoPlSTHtAvjriaNfi+5nugW4cx7yA/xN3f/nYkElw11gFBoJ2xUDDFgg==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/free-regular-svg-icons@7.0.1':
+    resolution: {integrity: sha512-4V9fHbHjcx9Qu4O99AM5B4zuEDfB4zajk1I77hEzOxPN00f8g3484Aeq6WpfFcmookvjLE3Pr71Dhf/lqw7tbA==}
     engines: {node: '>=6'}
 
   '@fortawesome/free-solid-svg-icons@7.0.0':
@@ -1178,6 +1198,27 @@ packages:
 
   '@poppinss/exception@1.2.2':
     resolution: {integrity: sha512-m7bpKCD4QMlFCjA/nKTs23fuvoVFoA83brRKmObCUNmi/9tVu8Ve3w4YQAnJu4q3Tjf5fr685HYIC/IA2zHRSg==}
+
+  '@shikijs/core@3.12.2':
+    resolution: {integrity: sha512-L1Safnhra3tX/oJK5kYHaWmLEBJi1irASwewzY3taX5ibyXyMkkSDZlq01qigjryOBwrXSdFgTiZ3ryzSNeu7Q==}
+
+  '@shikijs/engine-javascript@3.12.2':
+    resolution: {integrity: sha512-Nm3/azSsaVS7hk6EwtHEnTythjQfwvrO5tKqMlaH9TwG1P+PNaR8M0EAKZ+GaH2DFwvcr4iSfTveyxMIvXEHMw==}
+
+  '@shikijs/engine-oniguruma@3.12.2':
+    resolution: {integrity: sha512-hozwnFHsLvujK4/CPVHNo3Bcg2EsnG8krI/ZQ2FlBlCRpPZW4XAEQmEwqegJsypsTAN9ehu2tEYe30lYKSZW/w==}
+
+  '@shikijs/langs@3.12.2':
+    resolution: {integrity: sha512-bVx5PfuZHDSHoBal+KzJZGheFuyH4qwwcwG/n+MsWno5cTlKmaNtTsGzJpHYQ8YPbB5BdEdKU1rga5/6JGY8ww==}
+
+  '@shikijs/themes@3.12.2':
+    resolution: {integrity: sha512-fTR3QAgnwYpfGczpIbzPjlRnxyONJOerguQv1iwpyQZ9QXX4qy/XFQqXlf17XTsorxnHoJGbH/LXBvwtqDsF5A==}
+
+  '@shikijs/types@3.12.2':
+    resolution: {integrity: sha512-K5UIBzxCyv0YoxN3LMrKB9zuhp1bV+LgewxuVwHdl4Gz5oePoUFrr9EfgJlGlDeXCU1b/yhdnXeuRvAnz8HN8Q==}
+
+  '@shikijs/vscode-textmate@10.0.2':
+    resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
   '@sindresorhus/is@7.0.2':
     resolution: {integrity: sha512-d9xRovfKNz1SKieM0qJdO+PQonjnnIfSNWfHYnBSJ9hkjm0ZPw6HlxscDXYstp3z+7V2GOFHc+J0CYrYTjqCJw==}
@@ -2831,6 +2872,12 @@ packages:
     resolution: {integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==}
     engines: {node: '>= 0.8'}
 
+  oniguruma-parser@0.12.1:
+    resolution: {integrity: sha512-8Unqkvk1RYc6yq2WBYRj4hdnsAxVze8i7iPfQr8e4uSP3tRv0rpZcbGUDvxfQQcdwHt/e9PrMvGCsa8OqG9X3w==}
+
+  oniguruma-to-es@4.3.3:
+    resolution: {integrity: sha512-rPiZhzC3wXwE59YQMRDodUwwT9FZ9nNBwQQfsd1wfdtlKEyCdRV0avrTcSZ5xlIvGRVPd/cx6ZN45ECmS39xvg==}
+
   open@10.2.0:
     resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
@@ -2864,6 +2911,9 @@ packages:
   parse-json@5.2.0:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
+
+  parse-numeric-range@1.3.0:
+    resolution: {integrity: sha512-twN+njEipszzlMJd4ONUYgSfZPDxgHhT9Ahed5uTigpQn90FggW4SA/AIPq/6a149fTbE9qBEcSwE3FAEp6wQQ==}
 
   parse5@7.3.0:
     resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
@@ -2974,6 +3024,11 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
+  qrcode.react@4.2.0:
+    resolution: {integrity: sha512-QpgqWi8rD9DsS9EP3z7BT+5lY5SFhsqGjpgW5DY/i3mK4M9DTBNz3ErMi8BWYEfI3L0d8GIbGmcdFAS1uIRGjA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   qs@6.13.0:
     resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
     engines: {node: '>=0.6'}
@@ -3048,11 +3103,29 @@ packages:
   recma-stringify@1.0.0:
     resolution: {integrity: sha512-cjwII1MdIIVloKvC9ErQ+OgAtwHBmcZ0Bg4ciz78FtbT8In39aAYbaA7zvxQ61xVMSPE8WxhLwLbhif4Js2C+g==}
 
+  regex-recursion@6.0.2:
+    resolution: {integrity: sha512-0YCaSCq2VRIebiaUviZNs0cBz1kg5kVS2UKUfNIx8YVs1cN3AV7NTctO5FOKBA+UT2BPJIWZauYHPqJODG50cg==}
+
+  regex-utilities@2.3.0:
+    resolution: {integrity: sha512-8VhliFJAWRaUiVvREIiW2NXXTmHs4vMNnSzuJVhscgmGav3g9VDxLrQndI3dZZVVdp0ZO/5v0xmX516/7M9cng==}
+
+  regex@6.0.1:
+    resolution: {integrity: sha512-uorlqlzAKjKQZ5P+kTJr3eeJGSVroLKoHmquUj4zHWuR+hEyNqlXsSKlYYF5F4NI6nl7tWCs0apKJ0lmfsXAPA==}
+
   rehype-mdx-title@3.2.0:
     resolution: {integrity: sha512-/RSVBPQNcEzy8L3F6trvJc7U+S4MgNi8d5Lnpx29wF5isfpA/fPY+BFERj1J3j3R2VgC1UWmrqTlgq7Tf8ytZA==}
 
   rehype-mdx-toc@1.1.0:
     resolution: {integrity: sha512-MVujFouOXH5i5/87S7f6YSxYxuCPeu64bH8uElEtkYBMLnmWfzxTFJmHUQoeFStC9yZEbsKAkghcLWVdFxZk1w==}
+
+  rehype-parse@9.0.1:
+    resolution: {integrity: sha512-ksCzCD0Fgfh7trPDxr2rSylbwq9iYDkSn8TCDmEJ49ljEUBxDVCzCHv7QNzZOfODanX4+bWQ4WZqLCRWYLfhag==}
+
+  rehype-pretty-code@0.14.1:
+    resolution: {integrity: sha512-IpG4OL0iYlbx78muVldsK86hdfNoht0z63AP7sekQNW2QOTmjxB7RbTO+rhIYNGRljgHxgVZoPwUl6bIC9SbjA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      shiki: ^1.0.0 || ^2.0.0 || ^3.0.0
 
   rehype-recma@1.0.0:
     resolution: {integrity: sha512-lqA4rGUf1JmacCNWWZx0Wv1dHqMwxzsDWYMTowuplHF3xH0N/MmrZ/G3BDZnzAkRmxDadujCjaKM2hqYdCBOGw==}
@@ -3180,6 +3253,9 @@ packages:
   shell-quote@1.8.3:
     resolution: {integrity: sha512-ObmnIF4hXNg1BqhnHmgbDETF8dLPCggZWBjkQfhZpbszZnYur5DUljTcCHii5LC3J5E0yeO/1LIMyH+UvHQgyw==}
     engines: {node: '>= 0.4'}
+
+  shiki@3.12.2:
+    resolution: {integrity: sha512-uIrKI+f9IPz1zDT+GMz+0RjzKJiijVr6WDWm9Pe3NNY6QigKCfifCEv9v9R2mDASKKjzjQ2QpFLcxaR3iHSnMA==}
 
   side-channel-list@1.0.0:
     resolution: {integrity: sha512-FCLHtRD/gnpCiCHEiJLOwdmFP+wzCmDEkc9y7NsYxeF4u7Btsn1ZuwgwJGxImImHicJArLP4R0yX4c2KCrMrTA==}
@@ -3952,6 +4028,8 @@ snapshots:
 
   '@fortawesome/fontawesome-common-types@7.0.0': {}
 
+  '@fortawesome/fontawesome-common-types@7.0.1': {}
+
   '@fortawesome/fontawesome-svg-core@7.0.0':
     dependencies:
       '@fortawesome/fontawesome-common-types': 7.0.0
@@ -3959,6 +4037,10 @@ snapshots:
   '@fortawesome/free-brands-svg-icons@7.0.0':
     dependencies:
       '@fortawesome/fontawesome-common-types': 7.0.0
+
+  '@fortawesome/free-regular-svg-icons@7.0.1':
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 7.0.1
 
   '@fortawesome/free-solid-svg-icons@7.0.0':
     dependencies:
@@ -4308,6 +4390,39 @@ snapshots:
       supports-color: 10.2.0
 
   '@poppinss/exception@1.2.2': {}
+
+  '@shikijs/core@3.12.2':
+    dependencies:
+      '@shikijs/types': 3.12.2
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.4
+      hast-util-to-html: 9.0.5
+
+  '@shikijs/engine-javascript@3.12.2':
+    dependencies:
+      '@shikijs/types': 3.12.2
+      '@shikijs/vscode-textmate': 10.0.2
+      oniguruma-to-es: 4.3.3
+
+  '@shikijs/engine-oniguruma@3.12.2':
+    dependencies:
+      '@shikijs/types': 3.12.2
+      '@shikijs/vscode-textmate': 10.0.2
+
+  '@shikijs/langs@3.12.2':
+    dependencies:
+      '@shikijs/types': 3.12.2
+
+  '@shikijs/themes@3.12.2':
+    dependencies:
+      '@shikijs/types': 3.12.2
+
+  '@shikijs/types@3.12.2':
+    dependencies:
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.4
+
+  '@shikijs/vscode-textmate@10.0.2': {}
 
   '@sindresorhus/is@7.0.2': {}
 
@@ -6353,6 +6468,14 @@ snapshots:
 
   on-headers@1.0.2: {}
 
+  oniguruma-parser@0.12.1: {}
+
+  oniguruma-to-es@4.3.3:
+    dependencies:
+      oniguruma-parser: 0.12.1
+      regex: 6.0.1
+      regex-recursion: 6.0.2
+
   open@10.2.0:
     dependencies:
       default-browser: 5.2.1
@@ -6401,6 +6524,8 @@ snapshots:
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
+
+  parse-numeric-range@1.3.0: {}
 
   parse5@7.3.0:
     dependencies:
@@ -6513,6 +6638,10 @@ snapshots:
 
   punycode@2.3.1: {}
 
+  qrcode.react@4.2.0(react@19.1.1):
+    dependencies:
+      react: 19.1.1
+
   qs@6.13.0:
     dependencies:
       side-channel: 1.1.0
@@ -6606,6 +6735,16 @@ snapshots:
       unified: 11.0.5
       vfile: 6.0.3
 
+  regex-recursion@6.0.2:
+    dependencies:
+      regex-utilities: 2.3.0
+
+  regex-utilities@2.3.0: {}
+
+  regex@6.0.1:
+    dependencies:
+      regex-utilities: 2.3.0
+
   rehype-mdx-title@3.2.0:
     dependencies:
       '@types/hast': 3.0.4
@@ -6621,6 +6760,22 @@ snapshots:
       hast-util-heading-rank: 3.0.0
       hast-util-to-string: 3.0.1
       unist-util-mdx-define: 1.1.2
+      unist-util-visit: 5.0.0
+
+  rehype-parse@9.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-from-html: 2.0.3
+      unified: 11.0.5
+
+  rehype-pretty-code@0.14.1(shiki@3.12.2):
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-to-string: 3.0.1
+      parse-numeric-range: 1.3.0
+      rehype-parse: 9.0.1
+      shiki: 3.12.2
+      unified: 11.0.5
       unist-util-visit: 5.0.0
 
   rehype-recma@1.0.0:
@@ -6824,6 +6979,17 @@ snapshots:
       '@img/sharp-win32-x64': 0.33.5
 
   shell-quote@1.8.3: {}
+
+  shiki@3.12.2:
+    dependencies:
+      '@shikijs/core': 3.12.2
+      '@shikijs/engine-javascript': 3.12.2
+      '@shikijs/engine-oniguruma': 3.12.2
+      '@shikijs/langs': 3.12.2
+      '@shikijs/themes': 3.12.2
+      '@shikijs/types': 3.12.2
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.4
 
   side-channel-list@1.0.0:
     dependencies:

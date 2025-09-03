@@ -18,8 +18,15 @@ export const post = {
     color: vars.textColorSecondary,
   }),
   author: style({
+    // textDecoration: 'underline',
+    // textDecorationColor: `rgb(from currentcolor r g b / 50%)`,
     textDecoration: 'underline',
-    textDecorationColor: `rgb(from currentcolor r g b / 50%)`,
+    textDecorationColor: `oklch(80% 36% 260deg)`,
+    color: 'currentcolor',
+    font: 'inherit',
+    ':hover': {
+      color: 'oklch(80% 36% 260deg)',
+    },
   }),
   article: style({
     gridColumn: '2 / 3',
@@ -72,6 +79,10 @@ mdxStyle(`a:hover`, {
   color: 'oklch(80% 36% 260deg)',
 });
 
+mdxStyle(`figure`, {
+  marginInline: 0,
+});
+
 mdxStyle(`pre`, {
   background: 'light-dark(oklch(50% 10% 262deg / 8%), oklch(100% 10% 262deg / 8%))',
   paddingInline: 16,
@@ -81,6 +92,14 @@ mdxStyle(`pre`, {
 
 mdxStyle(`code`, {
   fontFamily: vars.fontCode,
+});
+
+mdxStyle(`
+  code[data-theme*=" "],
+  code[data-theme*=" "] span
+`, {
+  color: `light-dark(var(--shiki-light), var(--shiki-dark))`,
+  // backgroundColor: `light-dark(var(--shiki-light-bg), var(--shiki-dark-bg))`,
 });
 
 mdxStyle(`pre code`, {

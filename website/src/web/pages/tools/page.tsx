@@ -12,6 +12,12 @@ export function Component() {
         description="Convert CSS <color> into equal forms, pick color in OKLCH color space."
       />
       <Item
+        to="/tools/ss-qrcode"
+        icon={new URL('./media/shadowsocks.png?asset=resouce', import.meta.url).toString()}
+        title="Shadowsocks QR Code Generator"
+        description="Generate Shadowsocks SIP002 URI scheme QR Code."
+      />
+      <Item
         to="/tools/developer-home-tab"
         icon={new URL('./media/chrome.svg?asset=resouce', import.meta.url).toString()}
         title="Developer's Home Tab"
