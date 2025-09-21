@@ -1,0 +1,22 @@
+// https://github.com/connor4312/esbuild-problem-matchers/blob/main/package.json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "launch",
+      "type": "chrome",
+      "startingPage": "http://localhost:8080",
+      "remoteDebuggingPort": 9230,
+      "isBackground": true,
+    },
+    {
+      "label": "launch more options",
+      "type": "chrome",
+      "executable": "",
+      "userDataDir": "",
+      "startingPage": "http://localhost:8080",
+      "remoteDebuggingPort": 9230,
+      "isBackground": true,
+    },
+  ]
+}

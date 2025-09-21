@@ -3,4 +3,3 @@ packages:
   - ./.vscode/extensions/*
   - ./integrations/*
   - ./packages/*
-  - ./website

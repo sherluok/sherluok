@@ -1,12 +1,12 @@
 {
   "private": true,
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.16.1",
   "engines": {
     "node": ">=20",
-    "pnpm": ">=9"
+    "pnpm": ">=10"
   },
   "devDependencies": {
-    "tsx": "^4.20.3",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
 }

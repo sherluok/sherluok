@@ -2,17 +2,24 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Extension Tests",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": [
-        // "--disable-extensions",
+			"name": "Launch Extension",
+			"type": "extensionHost",
+			"request": "launch",
+      "preLaunchTask": "watch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+        "--disable-extensions",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        // "${workspaceFolder}/test",
+        "${workspaceFolder}/example",
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
 			"sourceMaps": true,
-    },
+			"outFiles": [
+        "${workspaceFolder}/out/**/*.js",
+      ],
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**",
+      ],
+		},
   ],
 }

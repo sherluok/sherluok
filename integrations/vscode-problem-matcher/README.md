@@ -1,39 +1,94 @@
-- [Local workspace extensions](https://code.visualstudio.com/updates/v1_89#_local-workspace-extensions)
-- https://code.visualstudio.com/docs/editor/tasks#_background-watching-tasks
-- https://github.com/paulober/vscode-rollup-problem-matcher/blob/main/package.json
-- https://github.com/cloudflare/workers-sdk/discussions/4174
+- https://github.com/connor4312/esbuild-problem-matchers
+- esbuild 默认错误输出格式参考文档 https://esbuild.github.io/api/#logging 和源码
 
-### 创建软连接
-```powershell
-# https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-item?view=powershell-7.4#example-7-create-a-symbolic-link-to-a-file-or-folder
-New-Item -Itemtype SymbolicLink -Target "C:\Users\host\src\peatip\integrations\vscode-problem-matcher" -Path "C:\Users\host\src\peatip\.vscode\extensions\vscode-problem-matcher-extension"
-# https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-7.4
-Remove-Item -Path "C:\Users\sherluok\github.com\sherluok\peatip\.vscode\extensions\vscode-problem-matcher-extension"
+## The `chrome` task type
+
+Provide new task type `"chrome"` to launch chrome browser at desired `--remote-debugging-port`. Create a `.vscode/tasks.json` file:
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "chrome",
+      "label": "launch",
+      "startingPage": "http://localhost:8080",
+      "remoteDebuggingPort": 9230,
+      "isBackground": true,
+    },
+  ]
+}
 ```
 
-Logos
-- vscode: https://code.visualstudio.com/api/references/contribution-points#contributes.icons
-- icomoon: https://www.eliostruyf.com/add-custom-themable-icon-visual-studio-code/
-- webpak: https://webpack.js.org/branding/
-- cloudflare: https://www.svgrepo.com/svg/349320/cloudflare
+This task will launch chrome if there is no chrome process running at this remote debugging port, the task will continue running until the chrome process is closed. This type of task is used before chrome debugger launch, for example, the `.vscode/launch.json` file:
 
-### 安装
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Chrome",
+      "type": "chrome",
+      "request": "attach",
+      "preLaunchTask": "launch",
+      "urlFilter": "http://localhost:8080/*",
+      "port": 9230,
+    }
+  ]
+}
+```
 
-执行下面的命令将在当前目录下创建 `.vscode/extensions/vscode-problem-matcher` 文件夹。
+For more detail on this files, go to [example/.vscode](./example/.vscode) folder.
+
+## The `$common` problem matcher
+
+Usage:
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Run webpack dev server",
+      "command": "pnpm",
+      "args": ["dev"],
+      "isBackground": true,
+      "problemMatcher": "$common",
+    }
+  ]
+}
+```
+
+The `$common` problem matcher is a background task problem matcher with `beginsPattern` equals to `vscode background task begins` and `endsPattern` equals to `vscode background task ends`, it's used by my webpack [VscodeTaskPlugin]().
+
+## Bundle Extension
 
 ```sh
-pnpm dlx vscode-problem-matcher install
+pnpm run build
+pnpm exec vsce package
 ```
 
-或者
+## Install Extension from Bundled
 
 ```sh
-node --import tsx ../../integrations/vscode-problem-matcher/src/link.ts
+code --install-extension ./problem-matcher-0.2.0.vsix
 ```
 
-## 开发
+> or run vscode task: install
 
-- VS Code Task Provider：
-  - https://code.visualstudio.com/api/extension-guides/task-provider
-  - https://github.com/microsoft/vscode-extension-samples/blob/main/task-provider-sample/README.md
-  - https://code.visualstudio.com/docs/editor/tasks
+## Install Extension from Marketplace
+
+```sh
+code --install-extension sherluok.problem-matcher
+```
+
+## Publish Extension
+
+```sh
+pnpm exec vsce publish
+```
+
+> or run vscode task: publish
+
+Open https://marketplace.visualstudio.com/manage

@@ -1,0 +1,128 @@
+// https://github.com/connor4312/esbuild-problem-matchers/blob/main/package.json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "watch",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}",
+      },
+      "command": "pnpm",
+      "args": [
+        "exec",
+        "esbuild",
+        "src/vscode.ts",
+        "--bundle",
+        "--outdir=out",
+        "--sourcemap",
+        "--platform=node",
+        "--target=node22.17.0",
+        "--packages=external",
+        "--watch",
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "severity": "error",
+        "applyTo": "closedDocuments",
+        "source": "esbuild",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^X \\[([A-Z]+)\\] (.+)",
+            "severity": 1,
+            "message": 2
+          },
+          {
+            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "\\[watch\\] build started"
+          },
+          "endsPattern": {
+            "regexp": "\\[watch\\] build finished"
+          }
+        }
+      },
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}",
+      },
+      "command": "pnpm",
+      "args": [
+        "exec",
+        "esbuild",
+        "src/vscode.ts",
+        "--bundle",
+        "--outdir=out",
+        "--sourcemap",
+        "--platform=node",
+        "--target=node22.17.0",
+        "--external:vscode"
+      ],
+      "problemMatcher": {
+        "severity": "error",
+        "applyTo": "closedDocuments",
+        "source": "esbuild",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^X \\[([A-Z]+)\\] (.+)",
+            "severity": 1,
+            "message": 2
+          },
+          {
+            "regexp": "^(?:\\t| {4})(?!\\s)([^:]+)(?::([0-9]+))?(?::([0-9]+))?:$",
+            "file": 1,
+            "line": 2,
+            "column": 3
+          }
+        ],
+      },
+    },
+    {
+      "label": "package",
+      "dependsOn": ["build"],
+      "type": "shell",
+      "command": "pnpm",
+      "args": [
+        "exec",
+        "vsce",
+        "package",
+      ],
+      "problemMatcher": [],
+    },
+    {
+      "label": "install",
+      "dependsOn": ["package"],
+      "type": "shell",
+      "command": "code",
+      "args": [
+        "--install-extension",
+        "problem-matcher-0.2.0.vsix",
+      ],
+      "problemMatcher": [],
+    },
+    {
+      "label": "publish",
+      "dependsOn": ["package"],
+      "type": "shell",
+      "command": "pnpm",
+      "args": [
+        "exec",
+        "vsce",
+        "publish",
+      ],
+      "problemMatcher": [],
+    },
+  ]
+}
