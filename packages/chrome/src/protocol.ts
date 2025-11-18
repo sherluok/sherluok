@@ -59,6 +59,16 @@ type WebSocketClientLike = {
   removeEventListener(event: string, listener: (...args: any[]) => any): void;
 };
 
+
+class ProtocolError extends Error {
+  public code: number;
+
+  constructor(code: number, message: string) {
+    super(message);
+    this.code = code;
+  }
+}
+
 export class ProtocolSessionManager {
   public readonly didWebSocketOpen = new Subject<unknown>();
   public readonly didWebSocketClose = new Subject<unknown>();
@@ -247,14 +257,5 @@ export class ProtocolSessionManager {
         });
       },
     });
-  }
-}
-
-class ProtocolError extends Error {
-  public code: number;
-
-  constructor(code: number, message: string) {
-    super(message);
-    this.code = code;
   }
 }
